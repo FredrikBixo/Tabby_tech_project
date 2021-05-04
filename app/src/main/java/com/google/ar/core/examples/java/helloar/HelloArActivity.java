@@ -30,8 +30,10 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.ar.core.Anchor;
 import com.google.ar.core.ArCoreApk;
 import com.google.ar.core.Camera;
@@ -74,6 +76,8 @@ import com.google.ar.core.exceptions.UnavailableArcoreNotInstalledException;
 import com.google.ar.core.exceptions.UnavailableDeviceNotCompatibleException;
 import com.google.ar.core.exceptions.UnavailableSdkTooOldException;
 import com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationException;
+import com.google.ar.sceneform.Scene;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -81,12 +85,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+
 /**
  * This is a simple example that shows how to create an augmented reality (AR) application using the
  * ARCore API. The application will display any detected planes and will allow the user to tap on a
  * plane to place a 3D model.
  */
 public class HelloArActivity extends AppCompatActivity implements SampleRender.Renderer {
+
+  private Scene scene;
 
   private static final String TAG = HelloArActivity.class.getSimpleName();
 
@@ -175,7 +182,7 @@ public class HelloArActivity extends AppCompatActivity implements SampleRender.R
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
+    setContentView(R.layout.activity_ar);
     surfaceView = findViewById(R.id.surfaceview);
     displayRotationHelper = new DisplayRotationHelper(/*context=*/ this);
 
@@ -201,6 +208,7 @@ public class HelloArActivity extends AppCompatActivity implements SampleRender.R
                 popup.show();
               }
             });
+
   }
 
   /** Menu button to launch feature specific settings. */
@@ -405,7 +413,7 @@ public class HelloArActivity extends AppCompatActivity implements SampleRender.R
                       "models/pawn_roughness_metallic_ao.png",
                       Texture.WrapMode.CLAMP_TO_EDGE,
                       Texture.ColorFormat.LINEAR);
-      virtualObjectMesh = Mesh.createFromAsset(render, "models/pawn.obj");
+      virtualObjectMesh = Mesh.createFromAsset(render, "models/butterfly_free.obj");
       virtualObjectShader =
               Shader.createFromAssets(
                       render,
@@ -815,4 +823,5 @@ public class HelloArActivity extends AppCompatActivity implements SampleRender.R
     }
     session.configure(config);
   }
+
 }

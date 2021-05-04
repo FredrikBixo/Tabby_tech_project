@@ -23,11 +23,12 @@
         android:usesCleartextTraffic="false"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".CollectionActivity"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MenuActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".MenuActivity" />
         </activity>
         <activity
             android:name=".SplashScreen"
@@ -38,17 +39,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MenuActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".HelloArActivity"
             android:configChanges="orientation|screenSize"
             android:exported="true"
             android:screenOrientation="locked"
             android:theme="@style/Theme.AppCompat.NoActionBar">
-            <intent-filter>
+            <!-- Eventuellt borde vi inkludera
+             android:parentActivityName=".MenuActivity"
+             i taggen ovan. -->
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+            </intent-filter>-->
         </activity> <!-- Indicates whether "Google Play Services for AR" (ARCore) is "required" or "optional". -->
         <meta-data
             android:name="com.google.ar.core"
