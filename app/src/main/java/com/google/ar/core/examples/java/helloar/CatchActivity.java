@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 
 import java.util.Random;
 import java.util.Timer;
@@ -21,6 +22,7 @@ public class CatchActivity extends AppCompatActivity {
     private Random rand;
     private Timer timer;
     private TimerTask task;
+    final private Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +43,7 @@ public class CatchActivity extends AppCompatActivity {
     public void startTimer() {
         this.timer = new Timer();
 
-        long delay = (long) (4 + 6*rand.nextDouble());
+        long delay = (long) ((4 + 6*rand.nextDouble())*1000);
 
         initializeTimerTask();
 
@@ -52,24 +54,27 @@ public class CatchActivity extends AppCompatActivity {
 
         task = new TimerTask() {
             public void run() {
-                AlertDialog.Builder builder = new AlertDialog.Builder(CatchActivity.this);
-                builder.setTitle("Oh no...")
-                        .setMessage("... the butterfly flew away.")
-                        .setCancelable(false)
-                        .setPositiveButton("Return to game", new DialogInterface.OnClickListener() {
-                            // This onclick method should reopen the AR-view, either by using
-                            // startActivity (as below) or by somehow going back from the current activity to
-                            // its parent-activity.
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(CatchActivity.this , HelloArActivity.class);
-                                startActivity(intent);
-                            }
-                        });
-                //Creating dialog box
-                AlertDialog dialog  = builder.create();
-                dialog.show();
-
+                handler.post(new Runnable() {
+                    public void run() {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(CatchActivity.this);
+                        builder.setTitle("Oh no...")
+                                .setMessage("... the butterfly flew away.")
+                                .setCancelable(false)
+                                .setPositiveButton("Return to game", new DialogInterface.OnClickListener() {
+                                    // This onclick method should reopen the AR-view, either by using
+                                    // startActivity (as below) or by somehow going back from the current activity to
+                                    // its parent-activity.
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent intent = new Intent(CatchActivity.this, HelloArActivity.class);
+                                        startActivity(intent);
+                                    }
+                                });
+                        //Creating dialog box
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    }
+                });
             }
         };
     }
