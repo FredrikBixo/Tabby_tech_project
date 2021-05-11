@@ -39,8 +39,14 @@ public class MenuActivity extends AppCompatActivity {
         Intent intent = new Intent(this, HelloArActivity.class);
         startActivity(intent);
     }
-    /*public void openAch() {
-        Intent intent = new Intent(this, ÄNDRA_DEN_HÄR_KLASSEN.class);
+
+    public void openCollection(View v) {
+        Intent intent = new Intent(this, CollectionActivity.class);
         startActivity(intent);
-    }*/
+    }
+
+    public void openCatch(View v) {
+        Intent intent = new Intent(this, CatchActivity.class);
+        startActivity(intent);
+    }
 }
