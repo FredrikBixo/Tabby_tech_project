@@ -14,8 +14,9 @@ import java.util.TimerTask;
 // Timer functionality based on https://examples.javacodegeeks.com/android/core/activity/android-timertask-example/#:~:text=%20Android%20TimerTask%20Example%20%201%20Create%20a,Open%20src%2Fcom.javacodegeeks.%204%20Android%20Manifest.%20%20More%20
 
 // Activity for catching butterflies
-// Has the beginnings of a timer that triggers a dialog that informs the user that the butterfly has
-// escaped and is supposed to return to AR-view
+// Has the beginnings of a timer that should trigger a dialog after 4-10 seconds that informs the
+// user that the butterfly has escaped and is supposed to return to AR-view after the dialog is
+// dismissed.
 public class CatchActivity extends AppCompatActivity {
     private Random rand;
     private Timer timer;
@@ -56,9 +57,12 @@ public class CatchActivity extends AppCompatActivity {
                         .setMessage("... the butterfly flew away.")
                         .setCancelable(false)
                         .setPositiveButton("Return to game", new DialogInterface.OnClickListener() {
+                            // This onclick method should reopen the AR-view, either by using
+                            // startActivity (as below) or by somehow going back from the current activity to
+                            // its parent-activity.
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(CatchActivity, HelloArActivity.class);
+                                Intent intent = new Intent(CatchActivity.this , HelloArActivity.class);
                                 startActivity(intent);
                             }
                         });
