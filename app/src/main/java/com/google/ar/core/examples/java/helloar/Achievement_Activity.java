@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,7 +20,7 @@ import java.util.List;
 
 
 
-public class Achievement_Activity extends Activity implements MyRecyclerViewAdapter.ItemClickListener {
+public class Achievement_Activity extends AppCompatActivity {
 
     MyRecyclerViewAdapter adapter;
 
@@ -29,23 +30,39 @@ public class Achievement_Activity extends Activity implements MyRecyclerViewAdap
         setContentView(R.layout.activity_achievement_);
 
         // data to populate the RecyclerView with
-        String[] data = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
-        // set up the RecyclerView
-        RecyclerView recyclerView = findViewById(R.id.rvNumbers);
 
-        recyclerView.setLayoutManager(new GridLayoutManager(this,3));
-        int spanCount = 3; // 3 columns
-        int spacing = 20; // 50px
-        boolean includeEdge = false;
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));
-
-        adapter = new MyRecyclerViewAdapter(this, data);
-        adapter.setClickListener(this);
-        recyclerView.setAdapter(adapter);
     }
 
-    @Override
-    public void onItemClick(View view, int position) {
-        Log.i("TAG", "You clicked number " + adapter.getItem(position) + ", which is at cell position " + position);
+    public void onClick1(View view) {
+        Intent intent = new Intent(this, Butterfly_info.class);
+        intent.putExtra("butterfly_id",1);
+        startActivity(intent);
     }
+
+    public void onClick2(View view) {
+        Intent intent = new Intent(this, Butterfly_info.class);
+        intent.putExtra("butterfly_id",2);
+        startActivity(intent);
+    }
+
+    public void onClick3(View view) {
+        Intent intent = new Intent(this, Butterfly_info.class);
+        intent.putExtra("butterfly_id",3);
+        startActivity(intent);
+    }
+
+    public void onClick4(View view) {
+
+    }
+
+    public void onClick5(View view) {
+
+    }
+
+    public void onClick6(View view) {
+
+    }
+
+
+
 }

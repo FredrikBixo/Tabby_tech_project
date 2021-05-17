@@ -2,7 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.google.ar.core.examples.java.helloar">
-
+    <!--
+ Limits app visibility in the Google Play Store to ARCore supported devices
+       (https://developers.google.com/ar/discover/supported-devices).
+    -->
     <application
         android:allowBackup="false"
         android:icon="@drawable/ic_launcher"
@@ -10,7 +13,27 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="false"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Achievement_Activity"></activity>
+
+        <activity
+            android:name=".Butterfly_info"
+            android:parentActivityName=".Achievement_Activity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Achievement_Activity" />
+        </activity>
+        <activity
+            android:name=".Achievement_Activity"
+            android:parentActivityName=".MenuActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity" />
+        </activity>
         <activity
             android:name=".SplashScreen"
             android:theme="@style/Theme.AppCompat.NoActionBar">
@@ -49,15 +72,12 @@
             android:name="com.google.ar.core"
             android:value="required" />
     </application>
-    <!--
- Limits app visibility in the Google Play Store to ARCore supported devices
-       (https://developers.google.com/ar/discover/supported-devices).
-    -->
-    <uses-feature
-        android:glEsVersion="0x00020000"
-        android:required="true" />
     <uses-feature
         android:name="android.hardware.camera.ar"
+        android:required="true" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
         android:required="true" />
 
     <uses-permission android:name="android.permission.CAMERA" />
