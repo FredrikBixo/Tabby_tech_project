@@ -12,6 +12,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,6 +27,7 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ThreadLocalRandom;
 
 // Timer functionality based on https://examples.javacodegeeks.com/android/core/activity/android-timertask-example/#:~:text=%20Android%20TimerTask%20Example%20%201%20Create%20a,Open%20src%2Fcom.javacodegeeks.%204%20Android%20Manifest.%20%20More%20
 
@@ -52,6 +54,7 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
     private String[] direction = {" ", " "};
     private TextToSpeech mTTS;
     private boolean alertIsShowing = false;
+    private TextView prompt;
 
     //Gyroscope values
     //private SensorManager sensorManager;
@@ -67,7 +70,7 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
 
         rand = new Random();
 
-
+        prompt = findViewById(R.id.promptText);
         //Accelerometer stuff
        /*xTextView = findViewById(R.id.X);
         yTextView = findViewById(R.id.Y);
@@ -128,7 +131,7 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
             sensorManager.registerListener((SensorEventListener) this, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(gyroscopeEventListener, gyroscopeSensor, SensorManager.SENSOR_DELAY_FASTEST);
         //onResume we start our timer so it can start when the app comes from the background
-        startTimer();
+        //startTimer();
 
 
 
@@ -203,7 +206,11 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
                     (xDifference > shakeThreshHold && zDifference > shakeThreshHold) ||
                     (yDifference > shakeThreshHold && zDifference > shakeThreshHold)){
 
-                if(correctAngle == true){
+                int randomNum = ThreadLocalRandom.current().nextInt(0, 100 + 1);
+                MediaPlayer ring= MediaPlayer.create(CatchActivity.this,R.raw.woosh);
+                ring.start();
+
+                if(correctAngle == true && randomNum <= 25){
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
@@ -223,7 +230,7 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
                                 }
                             });
                     //Creating dialog box
-
+                    vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
                     AlertDialog dialog1 = builder.create();
                     if(!alertIsShowing){
                         if(!isFinishing()){
@@ -233,22 +240,30 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
                     }
 
 
+                }
 
 
 
-
-
-
-
-
-
-                    vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
-                }else{
-                    vibrator.vibrate(500);
+                else{
+                    //vibrator.vibrate(500);
                     //deprecated in API 26 ??
                 }
 
-            }}
+            }
+
+                else if (randomNum > 25 && randomNum <= 50){
+                    prompt.setText("Close!");
+                }
+
+                else if (randomNum > 50 && randomNum <= 75){
+                    prompt.setText("Try again!");
+                }
+
+                else if (randomNum > 75){
+                    prompt.setText("Maybe next swing!");
+                }
+
+            }
 
             if(currentX < -0.5) {
                 direction[0] = "Right";
