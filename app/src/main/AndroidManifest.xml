@@ -35,6 +35,15 @@
                 android:value=".HelloArActivity" />
         </activity>
         <activity
+            android:name=".ButterflyInfo"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".CollectionActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HelloArActivity" />
+        </activity>
+        <activity
             android:name=".CollectionActivity"
             android:parentActivityName=".MenuActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
