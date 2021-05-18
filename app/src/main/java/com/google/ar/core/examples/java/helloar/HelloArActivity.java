@@ -26,9 +26,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -76,7 +73,6 @@ import com.google.ar.core.exceptions.UnavailableArcoreNotInstalledException;
 import com.google.ar.core.exceptions.UnavailableDeviceNotCompatibleException;
 import com.google.ar.core.exceptions.UnavailableSdkTooOldException;
 import com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationException;
-import com.google.ar.sceneform.Scene;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -92,8 +88,6 @@ import java.util.List;
  * plane to place a 3D model.
  */
 public class HelloArActivity extends AppCompatActivity implements SampleRender.Renderer {
-
-  private Scene scene;
 
   private static final String TAG = HelloArActivity.class.getSimpleName();
 
@@ -197,17 +191,8 @@ public class HelloArActivity extends AppCompatActivity implements SampleRender.R
 
     depthSettings.onCreate(this);
     instantPlacementSettings.onCreate(this);
-    ImageButton settingsButton = findViewById(R.id.settings_button);
-    settingsButton.setOnClickListener(
-            new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
-                PopupMenu popup = new PopupMenu(HelloArActivity.this, v);
-                popup.setOnMenuItemClickListener(HelloArActivity.this::settingsMenuClick);
-                popup.inflate(R.menu.settings_menu);
-                popup.show();
-              }
-            });
+
+
 
   }
 
