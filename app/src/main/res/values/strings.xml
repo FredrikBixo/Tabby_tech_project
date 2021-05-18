@@ -14,7 +14,7 @@
    limitations under the License.
 -->
 <resources>
-    <string name="app_name" translatable="false">HelloAR Java</string>
+    <string name="app_name" translatable="false">Butterfly</string>
     <string name="depth_use_explanation" translatable="false">When Depth is enabled on supported devices, virtual objects adapt to the environment by blending in with the real world.</string>
     <string name="button_text_enable_depth" translatable="false">Enable</string>
     <string name="button_text_disable_depth" translatable="false">Disable</string>
@@ -29,5 +29,8 @@
     <string-array name="instant_placement_options_array" translatable="false">
         <item>Enable Instant Placement</item>
     </string-array>
+    <string name="butterfly1_name">Blåvinge</string>
+    <string name="butterfly2_name">Påfågelöga</string>
+    <string name="butterfly3_name">Apollofjäril</string>
 
 </resources>
