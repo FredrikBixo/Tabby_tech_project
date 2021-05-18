@@ -31,4 +31,8 @@ public class CollectionActivity extends AppCompatActivity {
         intent.putExtra("butterfly_id",3);
         startActivity(intent);
     }
+
+    public void onClickLock(View view) {
+        //Display an alert about a DLC or something.
+    }
 }
