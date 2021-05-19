@@ -193,94 +193,95 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
+        if (isClose) {
         /*xTextView.setText(Math.round(sensorEvent.values[0] * 100.0) / 100.0 + " m/s² ");
         yTextView.setText(Math.round(sensorEvent.values[1] * 100.0) / 100.0 + " m/s² ");
         zTextView.setText(Math.round(sensorEvent.values[2] * 100.0) / 100.0 + " m/s² ");*/
 
-        currentX = sensorEvent.values[0];
-        currentY = sensorEvent.values[1];
-        currentZ = sensorEvent.values[2];
+            currentX = sensorEvent.values[0];
+            currentY = sensorEvent.values[1];
+            currentZ = sensorEvent.values[2];
 
-        if(itIsNotFirstTime){
-            xDifference = Math.abs(lastX - currentX);
-            yDifference = Math.abs(lastY - currentY);
-            zDifference = Math.abs(lastZ - currentZ);
+            if (itIsNotFirstTime) {
+                xDifference = Math.abs(lastX - currentX);
+                yDifference = Math.abs(lastY - currentY);
+                zDifference = Math.abs(lastZ - currentZ);
 
-            //SHAKE interaktion som kanske implementeras senare??
+                //SHAKE interaktion som kanske implementeras senare??
 
-            if((xDifference > shakeThreshHold && yDifference > shakeThreshHold )||
-                    (xDifference > shakeThreshHold && zDifference > shakeThreshHold) ||
-                    (yDifference > shakeThreshHold && zDifference > shakeThreshHold)){
+                if ((xDifference > shakeThreshHold && yDifference > shakeThreshHold) ||
+                        (xDifference > shakeThreshHold && zDifference > shakeThreshHold) ||
+                        (yDifference > shakeThreshHold && zDifference > shakeThreshHold)) {
 
-                int randomNum = ThreadLocalRandom.current().nextInt(0, 100 + 1);
-                MediaPlayer ring= MediaPlayer.create(GameActivity.this,R.raw.woosh);
-                ring.start();
+                    int randomNum = ThreadLocalRandom.current().nextInt(0, 100 + 1);
+                    MediaPlayer ring = MediaPlayer.create(GameActivity.this, R.raw.woosh);
+                    ring.start();
 
-                if(correctAngle == true && randomNum <= 25){
+                    if (correctAngle == true && randomNum <= 25) {
 
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-                        AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
-                        builder.setTitle("Yay!")
-                                .setMessage("You caught it!")
-                                .setCancelable(false)
-                                .setPositiveButton("Return to game", new DialogInterface.OnClickListener() {
-                                    // This onclick method should reopen the AR-view, either by using
-                                    // startActivity (as below) or by somehow going back from the current activity to
-                                    // its parent-activity.
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        Intent intent = new Intent(GameActivity.this, HelloArActivity.class);
-                                        startActivity(intent);
-                                        finish();
-                                    }
-                                });
-                        //Creating dialog box
-                        vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
-                        AlertDialog dialog1 = builder.create();
-                        if(!alertIsShowing){
-                            if(!isFinishing()){
-                                dialog1.show();
-                                alertIsShowing = true;
+                            AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
+                            builder.setTitle("Yay!")
+                                    .setMessage("You caught it!")
+                                    .setCancelable(false)
+                                    .setPositiveButton("Return to game", new DialogInterface.OnClickListener() {
+                                        // This onclick method should reopen the AR-view, either by using
+                                        // startActivity (as below) or by somehow going back from the current activity to
+                                        // its parent-activity.
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Intent intent = new Intent(GameActivity.this, HelloArActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    });
+                            //Creating dialog box
+                            vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+                            AlertDialog dialog1 = builder.create();
+                            if (!alertIsShowing) {
+                                if (!isFinishing()) {
+                                    dialog1.show();
+                                    alertIsShowing = true;
+                                }
                             }
+                        } else {
+                            //vibrator.vibrate(500);
+                            //deprecated in API 26 ??
                         }
-                    } else {
-                        //vibrator.vibrate(500);
-                        //deprecated in API 26 ??
+                    } else if (randomNum > 25 && randomNum <= 50) {
+                        //prompt.setText("Close!");
+                    } else if (randomNum > 50 && randomNum <= 75) {
+                        //prompt.setText("Try again!");
+                    } else if (randomNum > 75) {
+                        //prompt.setText("Maybe next swing!");
                     }
-                } else if (randomNum > 25 && randomNum <= 50){
-                    //prompt.setText("Close!");
-                } else if (randomNum > 50 && randomNum <= 75){
-                    //prompt.setText("Try again!");
-                } else if (randomNum > 75){
-                    //prompt.setText("Maybe next swing!");
+                }
+
+                if (currentX < -0.5) {
+                    direction[0] = "Right";
+                } else if (currentX > 0.5) {
+                    direction[0] = "Left";
+                } else {
+                    direction[0] = null;
+                }
+
+                // Gives direction depending on y-axis value
+                if (currentY < -0.5) {
+                    direction[1] = "Down";
+                } else if (currentY > 0.5) {
+                    direction[1] = "Up";
+                } else {
+                    direction[1] = null;
                 }
             }
+            lastX = currentX;
+            lastY = currentY;
+            lastZ = currentZ;
 
-            if(currentX < -0.5) {
-                direction[0] = "Right";
-            } else if (currentX > 0.5) {
-                direction[0] = "Left";
-            } else {
-                direction[0] = null;
-            }
+            itIsNotFirstTime = true;
 
-            // Gives direction depending on y-axis value
-            if(currentY < -0.5) {
-                direction[1] = "Down";
-            } else if (currentY > 0.5) {
-                direction[1] = "Up";
-            } else {
-                direction[1] = null;
-            }
-        }
-        lastX = currentX;
-        lastY = currentY;
-        lastZ = currentZ;
-
-        itIsNotFirstTime = true;
-
-        if(direction[0] != null || direction[1] != null) {
+            if (direction[0] != null || direction[1] != null) {
 
            /* if(direction[0] != null && direction[1] != null) {
                 directionText.setText(direction[0] + " and " + direction[1]);
@@ -290,9 +291,12 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
                 directionText.setText(direction[1]);
             }*/
 
-            getWindow().getDecorView().setBackgroundColor(Color.parseColor("#86BBD8")); //  background to lightblue if  yellow
-        } else {
-            getWindow().getDecorView().setBackgroundColor(Color.parseColor("#A4C755")); //  background to Green
+                getWindow().getDecorView().setBackgroundColor(Color.parseColor("#86BBD8")); //  background to lightblue if  yellow
+            } else {
+                getWindow().getDecorView().setBackgroundColor(Color.parseColor("#A4C755")); //  background to Green
+            }
+        } else if (butterflyIsInView) {
+            //position butterfly
         }
     }
 
