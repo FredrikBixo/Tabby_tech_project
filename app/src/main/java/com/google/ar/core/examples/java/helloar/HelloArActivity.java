@@ -1,4 +1,3 @@
-
 package com.google.ar.core.examples.java.helloar;
 
 import android.hardware.Camera;
@@ -12,12 +11,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-
 public class HelloArActivity extends AppCompatActivity implements SensorEventListener {
 
   private Camera mCamera;
   private CameraPreview mPreview;
-
   private TextView pedometerText;
   private SensorManager sensorManager;
   private Sensor pedometer;
@@ -36,14 +33,12 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
     FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
     preview.addView(mPreview);
 
+
     pedometerText = (TextView) findViewById(R.id.pedometers);
 
     sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-    if(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) != null) {
-      pedometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-    } else {
-      pedometerText.setText("Counter sensor is not present");
-    }
+
+    pedometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
   }
 
@@ -61,10 +56,8 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
 
   @Override
   public void onSensorChanged(SensorEvent event) {
-
     stepCount += (int) event.values[0] * (-1);
     pedometerText.setText("Steps: " + String.valueOf(stepCount));
-
   }
 
   @Override

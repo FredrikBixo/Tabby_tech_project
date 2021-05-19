@@ -8,25 +8,7 @@
     tools:context=".MenuActivity">
 
 
-    <Button
-        android:id="@+id/SceneViewer"
-        android:layout_width="261dp"
-        android:layout_height="73dp"
 
-
-        android:backgroundTint="#0D232E"
-        android:bottomLeftRadius="40dp"
-        android:bottomRightRadius="40dp"
-        android:text="SceneViewer"
-        android:textColor="#DFD78A"
-        android:topLeftRadius="40dp"
-        android:topRightRadius="40dp"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.873" />
 
     <TextView
         android:id="@+id/chooseSensor"

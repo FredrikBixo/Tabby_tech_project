@@ -22,11 +22,15 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="1"
+<<<<<<< HEAD
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
     </FrameLayout>
+=======
+        />
+>>>>>>> c0751f036ec0a6f403af4e447627b6477c366458
 
     <TextView
         android:id="@+id/pedometers"
