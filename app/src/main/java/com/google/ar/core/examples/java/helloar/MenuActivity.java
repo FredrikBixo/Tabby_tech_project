@@ -3,6 +3,7 @@ package com.google.ar.core.examples.java.helloar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -31,7 +32,12 @@ public class MenuActivity extends AppCompatActivity {
                 openAch();
             }
         });*/
+
+        MediaPlayer ring= MediaPlayer.create(MenuActivity.this,R.raw.bubble);
+        ring.start();
     }
+
+
 
     //Metoder för att starta specifik activity
 
