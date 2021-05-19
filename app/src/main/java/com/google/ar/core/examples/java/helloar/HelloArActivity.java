@@ -56,7 +56,12 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
 
   @Override
   public void onSensorChanged(SensorEvent event) {
-    stepCount += (int) event.values[0] * (-1);
+    if(event.values[0] < 0) {
+      stepCount += event.values[0] * (-1);
+    } else {
+      stepCount += (int) event.values[0];
+    }
+
     pedometerText.setText("Steps: " + String.valueOf(stepCount));
   }
 
