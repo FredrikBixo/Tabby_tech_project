@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class MenuActivity extends AppCompatActivity {
-
+    private MediaPlayer ring;
     private Button button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +21,7 @@ public class MenuActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openPlay();
+               openPlay();
             }
         });
 
@@ -33,7 +33,7 @@ public class MenuActivity extends AppCompatActivity {
             }
         });*/
 
-        MediaPlayer ring= MediaPlayer.create(MenuActivity.this,R.raw.bubble);
+        ring= MediaPlayer.create(MenuActivity.this,R.raw.bubble);
         ring.start();
     }
 
@@ -42,17 +42,23 @@ public class MenuActivity extends AppCompatActivity {
     //Metoder för att starta specifik activity
 
     public void openPlay() {
+        ring.stop();
         Intent intent = new Intent(this, HelloArActivity.class);
         startActivity(intent);
+
     }
 
     public void openCollection(View v) {
+        ring.stop();
         Intent intent = new Intent(this, CollectionActivity.class);
         startActivity(intent);
+
     }
 
     public void openCatch(View v) {
+        ring.stop();
         Intent intent = new Intent(this, CatchActivity.class);
         startActivity(intent);
+
     }
 }
