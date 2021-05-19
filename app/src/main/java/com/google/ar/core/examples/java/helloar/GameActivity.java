@@ -249,11 +249,11 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
                         //deprecated in API 26 ??
                     }
                 } else if (randomNum > 25 && randomNum <= 50){
-                    prompt.setText("Close!");
+                    //prompt.setText("Close!");
                 } else if (randomNum > 50 && randomNum <= 75){
-                    prompt.setText("Try again!");
+                    //prompt.setText("Try again!");
                 } else if (randomNum > 75){
-                    prompt.setText("Maybe next swing!");
+                    //prompt.setText("Maybe next swing!");
                 }
             }
 
@@ -301,8 +301,6 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
-
-
 
     @Override
     protected void onPause() {
