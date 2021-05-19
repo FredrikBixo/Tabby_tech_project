@@ -1,16 +1,27 @@
 
 package com.google.ar.core.examples.java.helloar;
 
-import android.app.Activity;
 import android.hardware.Camera;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.widget.FrameLayout;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 
-public class HelloArActivity extends Activity {
+public class HelloArActivity extends AppCompatActivity implements SensorEventListener {
 
   private Camera mCamera;
   private CameraPreview mPreview;
+
+  private TextView pedometerText;
+  private SensorManager sensorManager;
+  private Sensor pedometer;
+  private int stepCount = 0;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -24,6 +35,41 @@ public class HelloArActivity extends Activity {
     mPreview = new CameraPreview(this, mCamera);
     FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
     preview.addView(mPreview);
+
+    pedometerText = (TextView) findViewById(R.id.pedometers);
+
+    sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+    if(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) != null) {
+      pedometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+    } else {
+      pedometerText.setText("Counter sensor is not present");
+    }
+
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    sensorManager.registerListener(this, pedometer, SensorManager.SENSOR_DELAY_NORMAL);
+  }
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+    sensorManager.unregisterListener(this);
+  }
+
+  @Override
+  public void onSensorChanged(SensorEvent event) {
+
+    stepCount += (int) event.values[0] * (-1);
+    pedometerText.setText("Steps: " + String.valueOf(stepCount));
+
+  }
+
+  @Override
+  public void onAccuracyChanged(Sensor sensor, int i) {
+
   }
 
   public static Camera getCameraInstance(){
