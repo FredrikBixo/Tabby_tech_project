@@ -26,7 +26,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.873" />
+        app:layout_constraintVertical_bias="0.832" />
 
     <TextView
         android:id="@+id/chooseSensor"
@@ -62,45 +62,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/settings_button"
-        android:layout_width="261dp"
-        android:layout_height="73dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#0D232E"
-
-        android:text="Settings"
-        android:textColor="#DFD78A"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.757" />
-
-    <Button
-        android:id="@+id/colButton"
-        android:layout_width="261dp"
-        android:layout_height="73dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#0D232E"
-
-        android:onClick="openCollection"
-        android:text="Collection"
-        android:textColor="#DFD78A"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.619"
-
-        android:bottomRightRadius="8dp"
-        android:bottomLeftRadius="8dp"
-        android:topRightRadius="8dp"
-        android:topLeftRadius="8dp"
-        />
-
 
     <!--<ImageView
         android:id="@+id/imageView"
@@ -113,6 +74,46 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.314"
         app:srcCompat="@drawable/butterfly" />-->
+
+    <Button
+        android:id="@+id/settings_button"
+        android:layout_width="261dp"
+        android:layout_height="73dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#0D232E"
+
+        android:text="Settings"
+        android:textColor="#DFD78A"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.714" />
+
+    <Button
+        android:id="@+id/colButton"
+        android:layout_width="261dp"
+        android:layout_height="73dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#0D232E"
+
+        android:bottomLeftRadius="8dp"
+        android:bottomRightRadius="8dp"
+        android:onClick="openCollection"
+
+        android:text="Collection"
+        android:textColor="#DFD78A"
+        android:topLeftRadius="8dp"
+        android:topRightRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.601" />
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/gifImageView"
@@ -130,12 +131,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="© Tabby Tech"
-        android:textColor="#151633"
+        android:textColor="#70009688"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.932" />
+        app:layout_constraintVertical_bias="0.955" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/testCatchButton"
