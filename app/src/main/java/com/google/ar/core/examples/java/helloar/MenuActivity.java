@@ -1,12 +1,14 @@
 package com.google.ar.core.examples.java.helloar;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.Manifest;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 public class MenuActivity extends AppCompatActivity {
     private MediaPlayer ring;
@@ -15,6 +17,8 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu); //I know there is an issue here i might be able to fix with dependencies
+
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 12);
 
         //Knappar för onClick metod, startar activity
         button = (Button) findViewById(R.id.playButton);
