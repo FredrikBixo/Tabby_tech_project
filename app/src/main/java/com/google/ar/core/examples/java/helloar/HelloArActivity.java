@@ -24,9 +24,6 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
   private int stepCount = 0;
   private boolean firstBoot;
 
-  private boolean runningQOrLater = android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q;
-
-
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -44,8 +41,8 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
 
     firstBoot = false;
 
+    // Ask for permission to use sensors
     ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, 45);
-
 
     pedometerText = (TextView) findViewById(R.id.pedometers);
 
