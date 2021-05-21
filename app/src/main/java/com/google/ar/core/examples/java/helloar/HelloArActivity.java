@@ -18,7 +18,10 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
   private TextView pedometerText;
   private SensorManager sensorManager;
   private Sensor pedometer;
+  private int initialStepCount;
   private int stepCount = 0;
+  private boolean firstBoot;
+
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -33,12 +36,13 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
     FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
     preview.addView(mPreview);
 
+    firstBoot = false;
 
     pedometerText = (TextView) findViewById(R.id.pedometers);
 
     sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
-    pedometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+    pedometer = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
 
   }
 
@@ -56,11 +60,15 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
 
   @Override
   public void onSensorChanged(SensorEvent event) {
-    if(event.values[0] < 0) {
-      stepCount += event.values[0] * (-1);
-    } else {
-      stepCount += (int) event.values[0];
-    }
+    //if(event.values[0] < 0) {
+    //  stepCount += event.values[0] * (-1);
+    //} else {
+      if(!firstBoot) {
+        initialStepCount = (int) event.values[0];
+        firstBoot = true;
+      }
+      stepCount = (int) event.values[0] - initialStepCount;
+    //}
 
     pedometerText.setText("Steps: " + String.valueOf(stepCount));
   }
