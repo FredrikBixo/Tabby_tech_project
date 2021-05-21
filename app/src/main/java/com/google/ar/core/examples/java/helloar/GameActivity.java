@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -61,14 +62,22 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
     private SensorEventListener gyroscopeEventListener;
     private boolean correctAngle;
 
-    private boolean isClose = false;
+    private float heading = 0;
     private boolean butterflyIsInView = false;
-    private GifImageView butterfly = (GifImageView) findViewById(R.id.gifImageViewGame);
+    private final int sizeIncreasePerStep = 1;
+    private int butterflySize = 0;
+    private int catchThreshold = 30;
+    private final float cameraAngle = 60f;
+    private GifImageView butterfly;
+    private int layoutWidth = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        butterfly = (GifImageView) findViewById(R.id.gifImageViewGame);
+        layoutWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
 
         rand = new Random();
 
@@ -173,27 +182,32 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
             public void run() {
                 handler.post(new Runnable() {
                     public void run() {
-
-                        isClose = false;
-
                         butterflyIsInView = true;
 
                         if(isAccelerometerAvailable)
                             sensorManager.registerListener((SensorEventListener) GameActivity.this, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
                         sensorManager.registerListener(gyroscopeEventListener, gyroscopeSensor, SensorManager.SENSOR_DELAY_FASTEST);
 
-                        butterfly.setLayoutParams(new ViewGroup.LayoutParams(3, 3));
+                        updateButterfly();
                     }
                 });
             }
         };
     }
 
+    private void updateButterfly() {
+        if (butterflyIsInView) {
+            butterflySize += sizeIncreasePerStep;
+            butterfly.setLayoutParams(new ViewGroup.LayoutParams(butterflySize, butterflySize));
+
+        }
+    }
+
 //Accelerometer methods
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        if (isClose) {
+        if (butterflySize > catchThreshold) {
         /*xTextView.setText(Math.round(sensorEvent.values[0] * 100.0) / 100.0 + " m/s² ");
         yTextView.setText(Math.round(sensorEvent.values[1] * 100.0) / 100.0 + " m/s² ");
         zTextView.setText(Math.round(sensorEvent.values[2] * 100.0) / 100.0 + " m/s² ");*/
@@ -297,7 +311,31 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
             }
         } else if (butterflyIsInView) {
             //position butterfly
+            placeButterfly();
         }
+    }
+
+    private void placeButterfly() {
+        int X = 0;
+        int Y = 0;
+        if (Math.abs(heading - meanHeading) < cameraAngle/2) {
+
+        } else if (heading < 30f && meanHeading < (330f - heading)) {
+
+        } else if (meanHeading < 30f && heading < (330f - meanHeading)) {
+
+        }
+
+        // placing at bottom right of touch
+        butterfly.layout(X, Y, X+48, Y+48);
+
+        //placing at center of touch
+        int viewWidth = butterfly.getWidth();
+        int viewHeight = butterfly.getHeight();
+        viewWidth = viewWidth / 2;
+        viewHeight = viewHeight / 2;
+
+        butterfly.layout(X - butterflySize/2, Y - butterflySize/2, X + butterflySize/2, Y + butterflySize/2);
     }
 
 
