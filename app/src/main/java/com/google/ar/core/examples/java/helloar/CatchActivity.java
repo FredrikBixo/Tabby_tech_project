@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.hardware.Camera;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -20,6 +21,7 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,11 +64,22 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
     private SensorEventListener gyroscopeEventListener;
     private boolean correctAngle;
 
+    //Camera stuff
+    private Camera mCamera;
+    private CameraPreview mPreview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catch);
+
+        // Create an instance of Camera
+        mCamera = getCameraInstance();
+
+        // Create our Preview view and set it as the content of our activity.
+        mPreview = new CameraPreview(this, mCamera);
+        FrameLayout preview = (FrameLayout) findViewById(R.id.camera_catch_preview);
+        preview.addView(mPreview);
 
         rand = new Random();
 
@@ -131,7 +144,7 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
             sensorManager.registerListener((SensorEventListener) this, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(gyroscopeEventListener, gyroscopeSensor, SensorManager.SENSOR_DELAY_FASTEST);
         //onResume we start our timer so it can start when the app comes from the background
-        //startTimer();
+        startTimer();
 
 
 
@@ -173,8 +186,10 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
 
                         if(!alertIsShowing){
                             if(!isFinishing()){
+
                                 dialog1.show();
                                 alertIsShowing = true;
+
                             }
                         }
                     }
@@ -202,8 +217,8 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
 
             //SHAKE interaktion som kanske implementeras senare??
 
-            if((xDifference > shakeThreshHold && yDifference > shakeThreshHold )||
-                    (xDifference > shakeThreshHold && zDifference > shakeThreshHold) ||
+            if((xDifference > shakeThreshHold && yDifference > shakeThreshHold )||/*
+                    (xDifference > shakeThreshHold && zDifference > shakeThreshHold) ||*/
                     (yDifference > shakeThreshHold && zDifference > shakeThreshHold)){
 
                 int randomNum = ThreadLocalRandom.current().nextInt(0, 100 + 1);
@@ -230,10 +245,13 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
                                 }
                             });
                     //Creating dialog box
-                    vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+                    prompt.setText("Yay!");
+                    vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE));
                     AlertDialog dialog1 = builder.create();
+
                     if(!alertIsShowing){
                         if(!isFinishing()){
+
                             dialog1.show();
                             alertIsShowing = true;
                         }
@@ -241,8 +259,6 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
 
 
                 }
-
-
 
                 else{
                     //vibrator.vibrate(500);
@@ -338,6 +354,17 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
         if(isAccelerometerAvailable)
             sensorManager.unregisterListener((SensorEventListener) this);
 
+    }
+
+    public static Camera getCameraInstance(){
+        Camera c = null;
+        try {
+            c = Camera.open(); // attempt to get a Camera instance
+        }
+        catch (Exception e){
+            // Camera is not available (in use or does not exist)
+        }
+        return c; // returns null if camera is unavailable
     }
 
 }

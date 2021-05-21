@@ -3,12 +3,13 @@ package com.google.ar.core.examples.java.helloar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 public class MenuActivity extends AppCompatActivity {
-
+    private MediaPlayer ring;
     private Button button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +21,7 @@ public class MenuActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openPlay();
+               openPlay();
             }
         });
 
@@ -31,22 +32,33 @@ public class MenuActivity extends AppCompatActivity {
                 openAch();
             }
         });*/
+
+        ring= MediaPlayer.create(MenuActivity.this,R.raw.bubble);
+        ring.start();
     }
+
+
 
     //Metoder för att starta specifik activity
 
     public void openPlay() {
         Intent intent = new Intent(this, GameActivity.class);
+        ring.stop();
         startActivity(intent);
+
     }
 
     public void openCollection(View v) {
+        ring.stop();
         Intent intent = new Intent(this, CollectionActivity.class);
         startActivity(intent);
+
     }
 
     public void openCatch(View v) {
+        ring.stop();
         Intent intent = new Intent(this, CatchActivity.class);
         startActivity(intent);
+
     }
 }
