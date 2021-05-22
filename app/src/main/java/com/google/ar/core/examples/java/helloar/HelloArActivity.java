@@ -1,5 +1,6 @@
 package com.google.ar.core.examples.java.helloar;
 
+import android.Manifest;
 import android.hardware.Camera;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -10,6 +11,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 public class HelloArActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -22,11 +24,12 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
   private int stepCount = 0;
   private boolean firstBoot;
 
-
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_ar);
+
+
 
     // Create an instance of Camera
     mCamera = getCameraInstance();
@@ -37,6 +40,9 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
     preview.addView(mPreview);
 
     firstBoot = false;
+
+    // Ask for permission to use sensors
+    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, 45);
 
     pedometerText = (TextView) findViewById(R.id.pedometers);
 
@@ -49,7 +55,7 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
   @Override
   protected void onResume() {
     super.onResume();
-    sensorManager.registerListener(this, pedometer, SensorManager.SENSOR_DELAY_NORMAL);
+    sensorManager.registerListener(this, pedometer, SensorManager.SENSOR_DELAY_FASTEST);
   }
 
   @Override
