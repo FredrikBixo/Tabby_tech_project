@@ -11,6 +11,8 @@
         android:layout_width="3dp"
         android:layout_height="3dp"
         android:src="@drawable/butterfly_catch"
-        android:visibility="invisible" />
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
