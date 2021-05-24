@@ -46,7 +46,7 @@ public class MenuActivity extends AppCompatActivity {
     //Metoder för att starta specifik activity
 
     public void openPlay() {
-        Intent intent = new Intent(this, GameActivity.class);
+        Intent intent = new Intent(this, HelloArActivity.class);
         ring.stop();
         //Intent intent = new Intent(this, HelloArActivity.class);
         startActivity(intent);
