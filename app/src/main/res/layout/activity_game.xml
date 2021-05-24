@@ -8,8 +8,9 @@
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/gifImageViewGame"
-        android:layout_width="3dp"
-        android:layout_height="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
         android:src="@drawable/butterfly_catch"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
