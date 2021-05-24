@@ -16,23 +16,36 @@
 
 package com.google.ar.core.examples.java.helloar;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.media.Image;
 import android.opengl.GLES30;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -93,7 +106,7 @@ import java.util.List;
  * ARCore API. The application will display any detected planes and will allow the user to tap on a
  * plane to place a 3D model.
  */
-public class HelloArActivity extends AppCompatActivity implements SampleRender.Renderer {
+public class HelloArActivity extends AppCompatActivity implements SampleRender.Renderer, SensorEventListener {
 
 
 
@@ -183,6 +196,15 @@ public class HelloArActivity extends AppCompatActivity implements SampleRender.R
   private final float[] worldLightDirection = {0.0f, 0.0f, 0.0f, 0.0f};
   private final float[] viewLightDirection = new float[4]; // view x world light direction
 
+  private SensorManager SensorManager;
+
+  // define the compass picture that will be use
+  private ImageView compassimage;
+
+  // record the angle turned of the compass picture
+  private float DegreeStart = 0f;
+  TextView DegreeTV;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -190,6 +212,7 @@ public class HelloArActivity extends AppCompatActivity implements SampleRender.R
     surfaceView = findViewById(R.id.surfaceview);
     displayRotationHelper = new DisplayRotationHelper(/*context=*/ this);
 
+    SensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
     // Set up touch listener.
     tapHelper = new TapHelper(/*context=*/ this);
     surfaceView.setOnTouchListener(tapHelper);
@@ -229,7 +252,6 @@ public class HelloArActivity extends AppCompatActivity implements SampleRender.R
     Intent intent = new Intent(this, CompassActivity.class);
     startActivity(intent);
   }
-
 
   /** Menu button to launch feature specific settings. */
   protected boolean settingsMenuClick(MenuItem item) {
@@ -842,6 +864,42 @@ public class HelloArActivity extends AppCompatActivity implements SampleRender.R
       config.setInstantPlacementMode(InstantPlacementMode.DISABLED);
     }
     session.configure(config);
+  }
+
+  @RequiresApi(api = Build.VERSION_CODES.M)
+  @Override
+  public void onSensorChanged(SensorEvent event) {
+    // get angle around the z-axis rotated
+    float degree = Math.round(event.values[0]);
+
+    if (degree > 345 && degree < 15) {
+      Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+// Vibrate for 500 milliseconds
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+      } else {
+        //deprecated in API 26
+        v.vibrate(500);
+      }
+    }
+
+    // rotation animation - reverse turn degree degrees
+    RotateAnimation ra = new RotateAnimation(
+            DegreeStart,
+            -degree,
+            Animation.RELATIVE_TO_SELF, 0.5f,
+            Animation.RELATIVE_TO_SELF, 0.5f);
+    // set the compass animation after the end of the reservation status
+    ra.setFillAfter(true);
+    // set how long the animation for the compass image will take place
+    ra.setDuration(210);
+    // Start animation of compass image
+    DegreeStart = -degree;
+
+  }
+  @Override
+  public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    // not in use
   }
 
 }
