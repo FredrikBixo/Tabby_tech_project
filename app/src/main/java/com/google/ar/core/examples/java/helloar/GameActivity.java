@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -96,6 +97,12 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
 
         butterfly = (GifImageView) findViewById(R.id.gifImageViewGame);
         //layoutWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+        butterfly.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCatch();
+            }
+        });
 
         rand = new Random();
 
@@ -402,6 +409,11 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         if (isAccelerometerAvailable) {
             sensorManager.unregisterListener((SensorEventListener) this);
         }
+    }
+
+    public void openCatch() {
+        Intent intent = new Intent(this, CatchActivity.class);
+        startActivity(intent);
     }
 
 }
