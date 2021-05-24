@@ -16,6 +16,7 @@ import android.os.Handler;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -73,6 +74,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
     private int catchThreshold = 30;
     private final float cameraAngle = 60f;
     private GifImageView butterfly;
+    private GifImageView circle;
 
     // ALPHA is the lowpass-filter threshold constant. If ALPHA = 1, no filter applies.
     private static final float ALPHA = 1f;
@@ -96,6 +98,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         setContentView(R.layout.activity_game);
 
         butterfly = (GifImageView) findViewById(R.id.gifImageViewGame);
+        circle = (GifImageView) findViewById(R.id.gifImageCircle);
         //layoutWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
         butterfly.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,12 +111,11 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
 
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-
-        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        gyroscopeSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+        accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        
 
         if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
-            accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
             isAccelerometerAvailable = true;
         } else {
             xTextView.setText("Accelerometer sensor is not available");
@@ -239,14 +241,22 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
+
+        currentX = sensorEvent.values[0];
+        currentY = sensorEvent.values[1];
+        currentZ = sensorEvent.values[2];
+
+        butterfly.setRotation(currentY);
+        circle.setRotation(currentY);
+
         if (butterflySize > catchThreshold) {
         /*xTextView.setText(Math.round(sensorEvent.values[0] * 100.0) / 100.0 + " m/s² ");
         yTextView.setText(Math.round(sensorEvent.values[1] * 100.0) / 100.0 + " m/s² ");
         zTextView.setText(Math.round(sensorEvent.values[2] * 100.0) / 100.0 + " m/s² ");*/
 
-            currentX = sensorEvent.values[0];
-            currentY = sensorEvent.values[1];
-            currentZ = sensorEvent.values[2];
+
+
+
 
             if (itIsNotFirstTime) {
                 xDifference = Math.abs(lastX - currentX);
