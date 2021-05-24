@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.google.ar.core.examples.java.helloar">
 
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
 
@@ -17,7 +21,8 @@
         android:glEsVersion="0x00020000"
         android:required="true" />
 
-    <uses-permission android:name="android.permission.VIBRATE" />
+
+
     <application
         android:allowBackup="false"
         android:icon="@drawable/appicon"
@@ -26,15 +31,24 @@
         android:usesCleartextTraffic="false"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+
+            android:name=".CompassActivity"
+            android:parentActivityName=".HelloArActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+
             android:name=".CatchActivity"
             android:screenOrientation="portrait"
             android:parentActivityName=".HelloArActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".HelloArActivity" />
         </activity>
         <activity
+
             android:name=".ButterflyInfo"
             android:screenOrientation="portrait"
             android:parentActivityName=".CollectionActivity"
@@ -44,7 +58,30 @@
                 android:value=".HelloArActivity" />
         </activity>
         <activity
+
+            android:name=".SettingsActivity"
+            android:parentActivityName=".MenuActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity" />
+        </activity>
+        <activity
+            android:name=".Butterfly_info"
+            android:parentActivityName=".Achievement_Activity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Achievement_Activity" />
+        </activity>
+        <activity
+
             android:name=".CollectionActivity"
+
             android:parentActivityName=".MenuActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
 
@@ -80,11 +117,14 @@
             android:theme="@style/Theme.AppCompat.NoActionBar">
 
             <!--
+<<<<<<< HEAD
+=======
              Eventuellt borde vi inkludera
              android:parentActivityName=".MenuActivity"
              i taggen ovan.
             -->
             <!--
+>>>>>>> main
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -96,5 +136,16 @@
             android:name="com.google.ar.core"
             android:value="required" />
     </application>
+
+    <uses-feature
+        android:name="android.hardware.camera.ar"
+        android:required="true" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
 
 </manifest>
