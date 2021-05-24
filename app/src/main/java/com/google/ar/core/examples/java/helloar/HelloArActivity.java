@@ -97,9 +97,6 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
 
   @Override
   public void onSensorChanged(SensorEvent event) {
-    //if(event.values[0] < 0) {
-    //  stepCount += event.values[0] * (-1);
-    //} else {
 
     if (event.sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
 
@@ -108,17 +105,12 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
         firstBoot = true;
       }
       stepCount = (int) event.values[0] - initialStepCount;
-      //}
-
-      pedometerText.setText("Steps: " + String.valueOf(stepCount));
 
       if (stepCount > 25) {
         butterfly.setVisibility(View.VISIBLE);
         circle.setVisibility(View.VISIBLE);
 
         spawnButterfly();
-        despawnButterfly();
-
 
       }
 
@@ -148,15 +140,8 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
     ObjectAnimator butterflySpawn = ObjectAnimator.ofFloat(butterfly, "translationX", 500f);
     ObjectAnimator butterflyAway = ObjectAnimator.ofFloat(butterfly, "translationX", -500f);
     butterflySpawn.setDuration(2000);
-
     butterflyAnimation.play(butterflySpawn).before(butterflyAway);
     butterflyAnimation.start();
-
-  }
-
-  private void despawnButterfly() {
-
-
   }
 
   @Override
