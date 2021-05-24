@@ -10,6 +10,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -129,7 +130,16 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
 
   if (event.sensor.getType() == Sensor.TYPE_ORIENTATION) {
     float degree = Math.round(event.values[0]);
-    butterfly.animate().translationX(+degree).setDuration(1).start();
+
+    DisplayMetrics displayMetrics = new DisplayMetrics();
+    getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+    int width = displayMetrics.widthPixels;
+
+    butterfly.setX(((360-degree)-40)*width/80);
+    //butterfly.animate().translationX(((360-degree)+40)*width/80).setDuration(200).start();
+
+    //butterfly.animate().translationX(+degree).setDuration(200).start();
+    //butterfly.setX(degree);
   }
 
   }
@@ -153,5 +163,6 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
   public void openCatch() {
     Intent intent = new Intent(this, CatchActivity.class);
     startActivity(intent);
+    finish();
   }
 }

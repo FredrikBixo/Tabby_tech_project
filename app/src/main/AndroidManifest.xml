@@ -34,11 +34,11 @@
 
             android:name=".CompassActivity"
             android:parentActivityName=".HelloArActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
 
-            android:name=".CatchActivity"
+        <activity    android:name=".CatchActivity"
             android:screenOrientation="portrait"
             android:parentActivityName=".HelloArActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
