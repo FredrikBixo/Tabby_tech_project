@@ -106,7 +106,7 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
       }
       stepCount = (int) event.values[0] - initialStepCount;
 
-      if (stepCount > 25) {
+      if (stepCount > 13) {
         butterfly.setVisibility(View.VISIBLE);
         circle.setVisibility(View.VISIBLE);
 

@@ -32,7 +32,6 @@
         android:layout_centerHorizontal="false"
         android:layout_centerVertical="false"
         android:layout_marginStart="2dp"
-        android:text="placeholder"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
