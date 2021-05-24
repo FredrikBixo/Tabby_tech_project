@@ -3,9 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.google.ar.core.examples.java.helloar">
 
+<<<<<<< HEAD
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
+=======
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!--
+ Limits app visibility in the Google Play Store to ARCore supported devices
+       (https://developers.google.com/ar/discover/supported-devices).
+    -->
+    <uses-feature
+        android:name="android.hardware.camera.ar"
+        android:required="true" />
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+>>>>>>> main
     <application
         android:allowBackup="false"
         android:icon="@drawable/ic_launcher"
@@ -14,16 +30,24 @@
         android:usesCleartextTraffic="false"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+<<<<<<< HEAD
             android:name=".CompassActivity"
             android:parentActivityName=".HelloArActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
+=======
+            android:name=".CatchActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".HelloArActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+>>>>>>> main
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".HelloArActivity" />
         </activity>
         <activity
+<<<<<<< HEAD
             android:name=".SettingsActivity"
             android:parentActivityName=".MenuActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
@@ -45,6 +69,9 @@
         </activity>
         <activity
             android:name=".Achievement_Activity"
+=======
+            android:name=".CollectionActivity"
+>>>>>>> main
             android:parentActivityName=".MenuActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
 
@@ -80,6 +107,14 @@
             android:theme="@style/Theme.AppCompat.NoActionBar">
 
             <!--
+<<<<<<< HEAD
+=======
+             Eventuellt borde vi inkludera
+             android:parentActivityName=".MenuActivity"
+             i taggen ovan.
+            -->
+            <!--
+>>>>>>> main
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -91,6 +126,7 @@
             android:name="com.google.ar.core"
             android:value="required" />
     </application>
+<<<<<<< HEAD
     <uses-feature
         android:name="android.hardware.camera.ar"
         android:required="true" />
@@ -100,5 +136,7 @@
         android:required="true" />
 
     <uses-permission android:name="android.permission.CAMERA" />
+=======
+>>>>>>> main
 
 </manifest>

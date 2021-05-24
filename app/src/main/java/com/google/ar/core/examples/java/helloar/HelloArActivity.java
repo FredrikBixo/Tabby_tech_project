@@ -16,6 +16,7 @@
 
 package com.google.ar.core.examples.java.helloar;
 
+<<<<<<< HEAD
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,18 +25,27 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+=======
+import android.content.DialogInterface;
+import android.content.res.Resources;
+>>>>>>> main
 import android.media.Image;
 import android.opengl.GLES30;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
+<<<<<<< HEAD
 import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+=======
+import android.os.Bundle;
+>>>>>>> main
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+<<<<<<< HEAD
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
@@ -46,6 +56,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+=======
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
+import android.widget.Toast;
+
+>>>>>>> main
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -106,9 +122,13 @@ import java.util.List;
  * ARCore API. The application will display any detected planes and will allow the user to tap on a
  * plane to place a 3D model.
  */
+<<<<<<< HEAD
 public class HelloArActivity extends AppCompatActivity implements SampleRender.Renderer, SensorEventListener {
 
 
+=======
+public class HelloArActivity extends AppCompatActivity implements SampleRender.Renderer {
+>>>>>>> main
 
   private Scene scene;
 
@@ -196,6 +216,7 @@ public class HelloArActivity extends AppCompatActivity implements SampleRender.R
   private final float[] worldLightDirection = {0.0f, 0.0f, 0.0f, 0.0f};
   private final float[] viewLightDirection = new float[4]; // view x world light direction
 
+<<<<<<< HEAD
   private SensorManager SensorManager;
 
   // define the compass picture that will be use
@@ -205,6 +226,8 @@ public class HelloArActivity extends AppCompatActivity implements SampleRender.R
   private float DegreeStart = 0f;
   TextView DegreeTV;
 
+=======
+>>>>>>> main
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -212,7 +235,10 @@ public class HelloArActivity extends AppCompatActivity implements SampleRender.R
     surfaceView = findViewById(R.id.surfaceview);
     displayRotationHelper = new DisplayRotationHelper(/*context=*/ this);
 
+<<<<<<< HEAD
     SensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+=======
+>>>>>>> main
     // Set up touch listener.
     tapHelper = new TapHelper(/*context=*/ this);
     surfaceView.setOnTouchListener(tapHelper);
@@ -236,6 +262,7 @@ public class HelloArActivity extends AppCompatActivity implements SampleRender.R
               }
             });
 
+<<<<<<< HEAD
     Button compassButton = findViewById(R.id.compass);
     compassButton.setOnClickListener(
             new View.OnClickListener() {
@@ -251,6 +278,8 @@ public class HelloArActivity extends AppCompatActivity implements SampleRender.R
   void compassClicked() {
     Intent intent = new Intent(this, CompassActivity.class);
     startActivity(intent);
+=======
+>>>>>>> main
   }
 
   /** Menu button to launch feature specific settings. */
@@ -866,6 +895,7 @@ public class HelloArActivity extends AppCompatActivity implements SampleRender.R
     session.configure(config);
   }
 
+<<<<<<< HEAD
   @RequiresApi(api = Build.VERSION_CODES.M)
   @Override
   public void onSensorChanged(SensorEvent event) {
@@ -902,4 +932,6 @@ public class HelloArActivity extends AppCompatActivity implements SampleRender.R
     // not in use
   }
 
+=======
+>>>>>>> main
 }

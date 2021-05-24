@@ -32,10 +32,13 @@
       android:src="@drawable/ic_settings"
       android:background="@android:color/transparent"/>
 
+<<<<<<< HEAD
   <Button
       android:id="@+id/compass"
       android:layout_width="50dp"
       android:layout_height="50dp"
       android:text="C" />
 
+=======
+>>>>>>> main
 </RelativeLayout>

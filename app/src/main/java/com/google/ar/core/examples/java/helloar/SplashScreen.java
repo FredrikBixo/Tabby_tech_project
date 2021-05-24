@@ -33,6 +33,10 @@ public class SplashScreen extends AppCompatActivity {
         loadingAnimation = (AnimationDrawable) imageView.getBackground();
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
         new Handler().postDelayed(new Runnable() {
             @Override public void run() {
                 Intent i = new Intent(SplashScreen.this, MenuActivity.class); startActivity(i);

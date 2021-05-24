@@ -24,12 +24,17 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
+<<<<<<< HEAD
         button = (Button) findViewById(R.id.achButton);
+=======
+        /*button = (Button) findViewById(R.id.achButton);
+>>>>>>> main
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openAch();
             }
+<<<<<<< HEAD
         });
 
         button = (Button) findViewById(R.id.settings_button);
@@ -40,6 +45,9 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
+=======
+        });*/
+>>>>>>> main
     }
 
     //Metoder för att starta specifik activity
@@ -49,6 +57,7 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+<<<<<<< HEAD
     public void openAch() {
         Intent intent = new Intent(this, Achievement_Activity.class);
         startActivity(intent);
@@ -59,4 +68,15 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+=======
+    public void openCollection(View v) {
+        Intent intent = new Intent(this, CollectionActivity.class);
+        startActivity(intent);
+    }
+
+    public void openCatch(View v) {
+        Intent intent = new Intent(this, CatchActivity.class);
+        startActivity(intent);
+    }
+>>>>>>> main
 }
