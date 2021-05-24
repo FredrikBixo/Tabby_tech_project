@@ -24,13 +24,14 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
 
   private Camera mCamera;
   private CameraPreview mPreview;
-  private TextView pedometerText;
+  private TextView pedometerText, prompt;
   private SensorManager sensorManager;
   private Sensor pedometer;
   private int initialStepCount;
   private int stepCount = 0;
   private boolean firstBoot;
   private GifImageView butterfly, circle;
+
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -79,6 +80,9 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
     butterflySpawn.play(butterflyAnimation).with(circleAnimation);
     butterflySpawn.start();
 
+    //set promptText
+    prompt = findViewById(R.id.promptText);
+
   }
 
   @Override
@@ -112,6 +116,8 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
 
         spawnButterfly();
 
+        prompt.setText("There is a butterfly nearby! Find it!");
+
       }
 
     }
@@ -128,7 +134,6 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
       circle.setX(((360-degree)-40)*width/80);
 
       //butterfly.animate().translationX(((360-degree)+40)*width/80).setDuration(200).start();
-
       //butterfly.animate().translationX(+degree).setDuration(200).start();
       //butterfly.setX(degree);
     }

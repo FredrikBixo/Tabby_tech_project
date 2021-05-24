@@ -71,13 +71,13 @@
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/grass" />
 
-    <!--<TextView
+    <TextView
         android:id="@+id/textView"
-        android:layout_width="342dp"
-        android:layout_height="65dp"
-        android:gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:includeFontPadding="false"
-        android:text="Look around for butterflies!"
+        android:gravity="center"
+        android:text="Look around for butterflies..."
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -86,7 +86,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.89" />
+        app:layout_constraintVertical_bias="0.821" />
 
 
     <TextView
@@ -94,13 +94,13 @@
         android:layout_width="316dp"
         android:layout_height="56dp"
         android:gravity="center"
-        android:text="Press on the one you like"
+        android:text="...and find your favourite!"
         android:textColor="#DCFFFFFF"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />-->
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 
 
