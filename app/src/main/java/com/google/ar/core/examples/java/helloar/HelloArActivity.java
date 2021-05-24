@@ -59,6 +59,8 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
     // create butterfly
     butterfly = (GifImageView) findViewById(R.id.gifImageViewGame);
     circle = (GifImageView) findViewById(R.id.gifImageCircle);
+    butterfly.setVisibility(View.INVISIBLE);
+    circle.setVisibility(View.INVISIBLE);
 
     // set tap interaction on butterfly
     butterfly.setOnClickListener(new View.OnClickListener() {
@@ -76,8 +78,6 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
     circleAnimation.setDuration(2000);
     butterflySpawn.play(butterflyAnimation).with(circleAnimation);
     butterflySpawn.start();
-
-
 
   }
 
@@ -116,31 +116,46 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
         butterfly.setVisibility(View.VISIBLE);
         circle.setVisibility(View.VISIBLE);
 
-        AnimatorSet butterflySpawn = new AnimatorSet();
-        ObjectAnimator butterflyAnimation = ObjectAnimator.ofFloat(butterfly, "translationX", 500f);
-        butterflyAnimation.setDuration(2000);
-        ObjectAnimator circleAnimation = ObjectAnimator.ofFloat(circle, "translationX", 500f);
-        circleAnimation.setDuration(2000);
-        butterflySpawn.play(butterflyAnimation).with(circleAnimation);
-        butterflySpawn.start();
+        spawnButterfly();
+        despawnButterfly();
+
+
       }
 
     }
 
 
-  if (event.sensor.getType() == Sensor.TYPE_ORIENTATION) {
-    float degree = Math.round(event.values[0]);
+    if (event.sensor.getType() == Sensor.TYPE_ORIENTATION) {
+      float degree = Math.round(event.values[0]);
 
-    DisplayMetrics displayMetrics = new DisplayMetrics();
-    getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-    int width = displayMetrics.widthPixels;
+      DisplayMetrics displayMetrics = new DisplayMetrics();
+      getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+      int width = displayMetrics.widthPixels;
 
-    butterfly.setX(((360-degree)-40)*width/80);
-    //butterfly.animate().translationX(((360-degree)+40)*width/80).setDuration(200).start();
+      butterfly.setX(((360-degree)-40)*width/80);
+      circle.setX(((360-degree)-40)*width/80);
 
-    //butterfly.animate().translationX(+degree).setDuration(200).start();
-    //butterfly.setX(degree);
+      //butterfly.animate().translationX(((360-degree)+40)*width/80).setDuration(200).start();
+
+      //butterfly.animate().translationX(+degree).setDuration(200).start();
+      //butterfly.setX(degree);
+    }
+
   }
+
+  private void spawnButterfly() {
+    AnimatorSet butterflyAnimation = new AnimatorSet();
+    ObjectAnimator butterflySpawn = ObjectAnimator.ofFloat(butterfly, "translationX", 500f);
+    ObjectAnimator butterflyAway = ObjectAnimator.ofFloat(butterfly, "translationX", -500f);
+    butterflySpawn.setDuration(2000);
+
+    butterflyAnimation.play(butterflySpawn).before(butterflyAway);
+    butterflyAnimation.start();
+
+  }
+
+  private void despawnButterfly() {
+
 
   }
 
