@@ -17,6 +17,7 @@
 package com.google.ar.core.examples.java.helloar;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.media.Image;
 import android.opengl.GLES30;
@@ -27,6 +28,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.Toast;
@@ -92,6 +94,8 @@ import java.util.List;
  * plane to place a 3D model.
  */
 public class HelloArActivity extends AppCompatActivity implements SampleRender.Renderer {
+
+
 
   private Scene scene;
 
@@ -209,7 +213,23 @@ public class HelloArActivity extends AppCompatActivity implements SampleRender.R
               }
             });
 
+    Button compassButton = findViewById(R.id.compass);
+    compassButton.setOnClickListener(
+            new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                compassClicked();
+              }
+            });
+
   }
+
+
+  void compassClicked() {
+    Intent intent = new Intent(this, CompassActivity.class);
+    startActivity(intent);
+  }
+
 
   /** Menu button to launch feature specific settings. */
   protected boolean settingsMenuClick(MenuItem item) {

@@ -32,6 +32,14 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
+        button = (Button) findViewById(R.id.settings_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSettings();
+            }
+        });
+
     }
 
     //Metoder för att starta specifik activity
@@ -43,6 +51,11 @@ public class MenuActivity extends AppCompatActivity {
 
     public void openAch() {
         Intent intent = new Intent(this, Achievement_Activity.class);
+        startActivity(intent);
+    }
+
+    public void openSettings() {
+        Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
 
