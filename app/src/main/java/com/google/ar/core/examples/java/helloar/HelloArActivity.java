@@ -59,6 +59,8 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
     // create butterfly
     butterfly = (GifImageView) findViewById(R.id.gifImageViewGame);
     circle = (GifImageView) findViewById(R.id.gifImageCircle);
+    butterfly.setVisibility(View.INVISIBLE);
+    circle.setVisibility(View.INVISIBLE);
 
     // set tap interaction on butterfly
     butterfly.setOnClickListener(new View.OnClickListener() {
@@ -76,8 +78,6 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
     circleAnimation.setDuration(2000);
     butterflySpawn.play(butterflyAnimation).with(circleAnimation);
     butterflySpawn.start();
-
-
 
   }
 
@@ -136,6 +136,8 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
     int width = displayMetrics.widthPixels;
 
     butterfly.setX(((360-degree)-40)*width/80);
+    circle.setX(((360-degree)-40)*width/80);
+
     //butterfly.animate().translationX(((360-degree)+40)*width/80).setDuration(200).start();
 
     //butterfly.animate().translationX(+degree).setDuration(200).start();
