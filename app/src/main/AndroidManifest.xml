@@ -18,6 +18,7 @@
         android:required="true" />
 
     <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="false"
         android:icon="@drawable/appicon"
@@ -25,10 +26,18 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="false"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".GameActivity"
+            android:parentActivityName=".MenuActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+            <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".MenuActivity" />
+        </activity>
         <activity
             android:name=".CatchActivity"
-            android:screenOrientation="portrait"
             android:parentActivityName=".HelloArActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -36,8 +45,8 @@
         </activity>
         <activity
             android:name=".ButterflyInfo"
-            android:screenOrientation="portrait"
             android:parentActivityName=".CollectionActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
