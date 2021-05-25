@@ -10,6 +10,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
   private int stepCount = 0;
   private boolean firstBoot;
   private GifImageView butterfly, circle;
+  private Sensor rotationVectorSensor;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -67,8 +69,11 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
       }
     });
 
+    rotationVectorSensor =
+            sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+
     // move butterfly off screen
-    AnimatorSet butterflySpawn = new AnimatorSet();
+  /*  AnimatorSet butterflySpawn = new AnimatorSet();
     ObjectAnimator butterflyAnimation = ObjectAnimator.ofFloat(butterfly, "translationX", -500f);
     butterflyAnimation.setDuration(2000);
     ObjectAnimator circleAnimation = ObjectAnimator.ofFloat(circle, "translationX", -500f);
@@ -76,6 +81,7 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
     butterflySpawn.play(butterflyAnimation).with(circleAnimation);
     butterflySpawn.start();
 
+    */
 
 
   }
@@ -86,6 +92,9 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
     sensorManager.registerListener(this, pedometer, SensorManager.SENSOR_DELAY_FASTEST);
     sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
             SensorManager.SENSOR_DELAY_GAME);
+    sensorManager.registerListener(this,
+            rotationVectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
+
   }
 
   @Override
@@ -126,11 +135,49 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
 
     }
 
-
+/*
   if (event.sensor.getType() == Sensor.TYPE_ORIENTATION) {
     float degree = Math.round(event.values[0]);
-    butterfly.animate().translationX(+degree).setDuration(1).start();
+    DisplayMetrics displayMetrics = new DisplayMetrics();
+    getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+    int width = displayMetrics.widthPixels;
+  //  butterfly.animate().translationX(((360-degree)+40)*width/80).setDuration(200).start();
+    butterfly.setX(((360-degree)+40)*width/80);
   }
+  */
+
+    if (event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
+
+      float[] rotationMatrix = new float[16];
+      SensorManager.getRotationMatrixFromVector(
+              rotationMatrix, event.values);
+
+      float[] remappedRotationMatrix = new float[16];
+      SensorManager.remapCoordinateSystem(rotationMatrix,
+              SensorManager.AXIS_X,
+              SensorManager.AXIS_Z,
+              remappedRotationMatrix);
+
+      // Convert to orientations
+      float[] orientations = new float[3];
+      SensorManager.getOrientation(remappedRotationMatrix, orientations);
+
+      // Convert to degrees
+      for(int i = 0; i < 3; i++) {
+        orientations[i] = (float)(Math.toDegrees(orientations[i]));
+      }
+
+      float xRotation = orientations[0];
+      float yRotation = orientations[1];
+      DisplayMetrics displayMetrics = new DisplayMetrics();
+      getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+      int width = displayMetrics.widthPixels;
+      int height = displayMetrics.heightPixels;
+      System.out.println(xRotation);
+      //  butterfly.animate().translationX(((360-degree)+40)*width/80).setDuration(200).start();
+      butterfly.setX(((180+xRotation)-80)*width/80);
+      butterfly.setY(((180+yRotation)-80)*height/80);
+    }
 
   }
 
