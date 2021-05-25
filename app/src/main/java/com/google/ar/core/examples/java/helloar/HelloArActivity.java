@@ -160,11 +160,11 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
       System.out.println("x:" + xRotation);
       System.out.println("y:" + yRotation);
       //  butterfly.animate().translationX(((360-degree)+40)*width/80).setDuration(200).start();
-      butterfly.setX(((180 + xRotation) - 100) * width / 80);
-      butterfly.setY(((180 + yRotation) - 100) * height / 80);
+      butterfly.setX(((180 - xRotation) - 100) * width / 80);
+      butterfly.setY(((180 - yRotation) - 100) * height / 80);
 
-      circle.setX(((180 + xRotation) - 100) * width / 80);
-      circle.setY(((180 + yRotation) - 100) * height / 80);
+      circle.setX(((180 - xRotation) - 100) * width / 80);
+      circle.setY(((180 - yRotation) - 100) * height / 80);
     }
   }
 
