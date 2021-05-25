@@ -94,8 +94,6 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
   protected void onResume() {
     super.onResume();
     sensorManager.registerListener(this, pedometer, SensorManager.SENSOR_DELAY_FASTEST);
-    sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
-            SensorManager.SENSOR_DELAY_GAME);
     sensorManager.registerListener(this,
             rotationVectorSensor, SensorManager.SENSOR_DELAY_NORMAL);
 
@@ -154,14 +152,19 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
 
       float xRotation = orientations[0];
       float yRotation = orientations[1];
+
       DisplayMetrics displayMetrics = new DisplayMetrics();
       getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
       int width = displayMetrics.widthPixels;
       int height = displayMetrics.heightPixels;
-      System.out.println(xRotation);
+      System.out.println("x:" + xRotation);
+      System.out.println("y:" + yRotation);
       //  butterfly.animate().translationX(((360-degree)+40)*width/80).setDuration(200).start();
-      butterfly.setX(((180 + xRotation) - 80) * width / 80);
-      butterfly.setY(((180 + yRotation) - 80) * height / 80);
+      butterfly.setX(((180 + xRotation) - 100) * width / 80);
+      butterfly.setY(((180 + yRotation) - 100) * height / 80);
+
+      circle.setX(((180 + xRotation) - 100) * width / 80);
+      circle.setY(((180 + yRotation) - 100) * height / 80);
     }
   }
 
