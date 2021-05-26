@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/gradient_list"
+    android:id="@+id/collection_layout"
     tools:context=".CollectionActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,8 +1,10 @@
 package com.google.ar.core.examples.java.helloar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.View;
@@ -20,6 +22,12 @@ public class ButterflyInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_butterfly_info);
+
+        ConstraintLayout constraintLayout = findViewById(R.id.butterflyInfo_layout);
+        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(2000);
+        animationDrawable.setExitFadeDuration(4000);
+        animationDrawable.start();
 
         vibrator = (Vibrator)  ButterflyInfo.this.getSystemService(Context.VIBRATOR_SERVICE);
 

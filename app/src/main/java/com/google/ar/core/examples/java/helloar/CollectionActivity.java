@@ -4,12 +4,15 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class CollectionActivity extends AppCompatActivity {
     public ImageView blueImage, redImage, whiteImage, greenImage;
@@ -20,6 +23,10 @@ public class CollectionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collection);
+
+        //LinearLayout linearLayout = findViewById(R.id.collection_layout);
+
+
         vibrator = (Vibrator)  CollectionActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
 
         blueImage = findViewById(R.id.blue);
