@@ -74,7 +74,7 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
 
 
     //Mediaplayer
-    private MediaPlayer ring, success, fail;
+    public static MediaPlayer woosh, success, fail;
 
     //Butterfly
     ImageView blueImage;
@@ -151,9 +151,19 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
             }
         };
         //Get  sounds
-        ring = MediaPlayer.create(CatchActivity.this, R.raw.woosh);
+        woosh = MediaPlayer.create(CatchActivity.this, R.raw.woosh);
         success = MediaPlayer.create(CatchActivity.this, R.raw.success);
         fail = MediaPlayer.create(CatchActivity.this, R.raw.fail);
+
+        if(SettingsActivity.globalMute) {
+            woosh.setVolume(0,0);
+            success.setVolume(0,0);
+            fail.setVolume(0,0);
+        }else{
+            woosh.setVolume(0,1);
+            success.setVolume(0,1);
+            fail.setVolume(0,1);
+        }
 
 
         //Choose butterfly
@@ -218,6 +228,7 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
                                     public void onClick(DialogInterface dialog, int which) {
                                         Intent intent = new Intent(CatchActivity.this, HelloArActivity.class);
                                         startActivity(intent);
+
                                         finish();
                                     }
                                 });
@@ -267,8 +278,10 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
                 int randomNum = ThreadLocalRandom.current().nextInt(0, 100 + 1);
 
 
-                    if (!ring.isPlaying()) {
-                        ring.start();
+
+
+                    if (!woosh.isPlaying()) {
+                        woosh.start();
                     }
 
 
@@ -289,6 +302,14 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
                                     public void onClick(DialogInterface dialog, int which) {
                                         Intent intent = new Intent(CatchActivity.this, CollectionActivity.class);
                                         startActivity(intent);
+                                        if(SettingsActivity.musicMute == true){
+                                            MenuActivity.ring.pause();
+
+                                        }
+                                        else{
+                                            MenuActivity.ring.start();
+                                        }
+
                                         finish();
                                     }
                                 });
@@ -319,7 +340,16 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
 
                         //if (!alertIsShowing) {
                             if (!isFinishing()) {
-                                vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE));
+
+
+                                    if(SettingsActivity.globalVibMute == true){
+
+
+                                    }
+                                    else{
+                                        vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE));
+                                    }
+
 
                                 dialog1.show();
                                 alertIsShowing = true;
@@ -439,9 +469,28 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
 
     //Back to menu
     public void openMenu(View v) {
-        
+
+        if(SettingsActivity.musicMute == true){
+            MenuActivity.ring.pause();
+
+        }
+        else{
+            MenuActivity.ring.start();
+        }
         finish();
 
+
+
+    }
+
+    public void goingToVibrate(){
+        if(SettingsActivity.globalVibMute == true){
+
+
+        }
+        else{
+            vibrator.vibrate(10);
+        }
     }
 
 }

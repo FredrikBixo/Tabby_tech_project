@@ -2,7 +2,9 @@ package com.google.ar.core.examples.java.helloar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,11 +14,14 @@ public class ButterflyInfo extends AppCompatActivity {
 
     ImageView butterfly_image;
     TextView butterfly_name, butterfly_counter, butterfly_info;
+    Vibrator vibrator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_butterfly_info);
+
+        vibrator = (Vibrator)  ButterflyInfo.this.getSystemService(Context.VIBRATOR_SERVICE);
 
         Integer id;
         if (savedInstanceState == null) {
@@ -67,8 +72,19 @@ public class ButterflyInfo extends AppCompatActivity {
     }
     //Return to previous activity
     public void back(View v) {
-
+        goingToVibrate();
         finish();
 
+    }
+
+    public void goingToVibrate(){
+        if(SettingsActivity.globalVibMute == true){
+
+
+        }
+        else{
+
+            vibrator.vibrate(8);
+        }
     }
 }

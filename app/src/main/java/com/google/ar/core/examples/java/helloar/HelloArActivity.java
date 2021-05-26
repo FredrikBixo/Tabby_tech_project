@@ -13,6 +13,7 @@ import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -41,7 +42,7 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
   private Sensor rotationVectorSensor;
   private Vibrator vibrator;
   public static int choosebutterfly;
-  private MediaPlayer alert;
+  public static MediaPlayer alert;
   public static boolean isHardModeON;
 
 
@@ -123,6 +124,12 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
     //alert sound
     alert = MediaPlayer.create(HelloArActivity.this, R.raw.attention);
 
+    if(SettingsActivity.globalMute) {
+      alert.setVolume(0,0);
+    }else{
+      alert.setVolume(0,1);
+    }
+
   }
 
   @Override
@@ -158,6 +165,8 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
         spawnButterfly();
 
         alert.start();
+        //vibrator.vibrate(80);
+        goingToVibrate();
         prompt.setText("There is a butterfly nearby! Find it!");
 
       }
@@ -250,9 +259,28 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
 
     //Intent intent = new Intent(this, MenuActivity.class);
     //startActivity(intent);
-    vibrator.vibrate(8);
-    MenuActivity.ring.start();
+    //vibrator.vibrate(8);
+    goingToVibrate();
+
+    if(SettingsActivity.musicMute == true){
+      MenuActivity.ring.pause();
+
+    }
+    else{
+      MenuActivity.ring.start();
+    }
     finish();
 
   }
+
+  public void goingToVibrate(){
+    if(SettingsActivity.globalVibMute == true){
+
+
+    }
+    else{
+      vibrator.vibrate(10);
+    }
+  }
+
 }

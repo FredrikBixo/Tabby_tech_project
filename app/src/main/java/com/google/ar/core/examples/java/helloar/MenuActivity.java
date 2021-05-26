@@ -7,6 +7,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 
@@ -19,6 +20,8 @@ public class MenuActivity extends AppCompatActivity {
     public static MediaPlayer ring;
     public static Vibrator vibrator;
     private Button button;
+
+    public static boolean isNotFirstTime, vibIsNotFirstTime;
     //Butterflies
     public static Butterfly blueButterfly, redButterfly, whiteButterfly, greenButterfly;
     @Override
@@ -43,7 +46,7 @@ public class MenuActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                vibrator.vibrate(8);
+                goingToVibrate();
                openPlay();
             }
         });
@@ -70,7 +73,7 @@ public class MenuActivity extends AppCompatActivity {
         });*/
 
 
-        ring= MediaPlayer.create(MenuActivity.this,R.raw.bubble);
+        ring = MediaPlayer.create(MenuActivity.this,R.raw.bubble);
         ring.setLooping(true);
         ring.start();
 
@@ -87,7 +90,7 @@ public class MenuActivity extends AppCompatActivity {
     //Metoder för att starta specifik activity
 
     public void openPlay() {
-        vibrator.vibrate(8);
+        goingToVibrate();
         ring.pause();
         Intent intent = new Intent(this, HelloArActivity.class);
         startActivity(intent);
@@ -100,7 +103,7 @@ public class MenuActivity extends AppCompatActivity {
     }*/
 
     public void openSettings(View view) {
-        vibrator.vibrate(8);
+        goingToVibrate();
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivityForResult(intent, 1234);
     }
@@ -108,7 +111,7 @@ public class MenuActivity extends AppCompatActivity {
 
     public void openCollection(View v) {
         //ring.stop();
-        vibrator.vibrate(8);
+        goingToVibrate();
         Intent intent = new Intent(this, CollectionActivity.class);
         startActivity(intent);
 
@@ -122,5 +125,14 @@ public class MenuActivity extends AppCompatActivity {
 
     }
 
+    public void goingToVibrate(){
+        if(SettingsActivity.globalVibMute == true){
+
+
+        }
+        else{
+            vibrator.vibrate(8);
+        }
+    }
 
 }

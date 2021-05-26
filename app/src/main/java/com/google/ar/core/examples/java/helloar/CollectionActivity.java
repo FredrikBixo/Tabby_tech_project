@@ -117,7 +117,7 @@ public class CollectionActivity extends AppCompatActivity {
 
     public void onClick1(View view) {
         if(MenuActivity.blueButterfly.getCount() >= 1) {
-            vibrator.vibrate(8);
+            goingToVibrate();
         }
         Intent intent = new Intent(this, ButterflyInfo.class);
         intent.putExtra("butterfly_id",1);
@@ -126,7 +126,7 @@ public class CollectionActivity extends AppCompatActivity {
 
     public void onClick2(View view) {
         if(MenuActivity.redButterfly.getCount() >= 1) {
-            vibrator.vibrate(8);
+            goingToVibrate();
         }
 
         Intent intent = new Intent(this, ButterflyInfo.class);
@@ -136,7 +136,7 @@ public class CollectionActivity extends AppCompatActivity {
 
     public void onClick3(View view) {
         if(MenuActivity.whiteButterfly.getCount() >= 1) {
-            vibrator.vibrate(8);
+            goingToVibrate();
         }
         Intent intent = new Intent(this, ButterflyInfo.class);
         intent.putExtra("butterfly_id",3);
@@ -145,7 +145,7 @@ public class CollectionActivity extends AppCompatActivity {
 
     public void onClick4(View view) {
         if(MenuActivity.greenButterfly.getCount() >= 1) {
-            vibrator.vibrate(8);
+            goingToVibrate();
         }
         Intent intent = new Intent(this, ButterflyInfo.class);
         intent.putExtra("butterfly_id",4);
@@ -156,15 +156,16 @@ public class CollectionActivity extends AppCompatActivity {
 
         //Intent intent = new Intent(this, MenuActivity.class);
         //startActivity(intent);
-        vibrator.vibrate(10);
+        goingToVibrate();
         finish();
 
     }
 
     public void openPlay(View view) {
+        goingToVibrate();
         Intent intent = new Intent(this, HelloArActivity.class);
         startActivity(intent);
-        MenuActivity.ring.stop();
+        MenuActivity.ring.pause();
         finish();
     }
 
@@ -185,5 +186,15 @@ public class CollectionActivity extends AppCompatActivity {
                     }
                 }).show();
 
+    }
+
+    public void goingToVibrate(){
+        if(SettingsActivity.globalVibMute == true){
+
+
+        }
+        else{
+            vibrator.vibrate(8);
+        }
     }
 }

@@ -3,20 +3,17 @@ package com.google.ar.core.examples.java.helloar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.provider.Settings;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.Switch;
-import android.widget.Toast;
 
 public class SettingsActivity extends AppCompatActivity {
     public Switch musicSwitch, soundSwitch, vibrationSwitch, hardModeSwitch;
     public Vibrator vibrator;
+    public static boolean globalMute, musicMute, globalVibMute;
+
 
 
     boolean prevCheckMusic, prevCheckSound, prevCheckVib, prevCheckHard;
@@ -37,33 +34,33 @@ public class SettingsActivity extends AppCompatActivity {
 
         //Sound Switch
         sharedPreferences = getSharedPreferences("SOUND_SWITCH_STATE", MODE_PRIVATE);
-        musicSwitch.setChecked(sharedPreferences.getBoolean("SOUND_SWITCH_STATE", true));
-        if(MenuActivity.ring.isPlaying()){
+        soundSwitch.setChecked(sharedPreferences.getBoolean("SOUND_SWITCH_STATE", true));
+
+        if(!MenuActivity.isNotFirstTime){
             soundSwitch.setChecked(true);
-            musicSwitch.setChecked(true);
+            MenuActivity.isNotFirstTime = true;
 
         }
 
-        else{
-            musicSwitch.setChecked(false);
-        }
-        musicSwitch.setOnClickListener(new View.OnClickListener(){
+        soundSwitch.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                if(musicSwitch.isChecked()){
-                    unmute();
+                if(soundSwitch.isChecked()){
+
+
+                    globalMute = false;
                     SharedPreferences.Editor editor = getSharedPreferences("SOUND_SWITCH_STATE", MODE_PRIVATE).edit();
                     editor.putBoolean("SOUND_SWITCH_STATE", true);
                     editor.commit();
                     //musicSwitch.setChecked(true);
                 }
                 else{
-                    mute();
-                    MenuActivity.ring.pause();
+
+                    globalMute = true;
                     SharedPreferences.Editor editor = getSharedPreferences("SOUND_SWITCH_STATE", MODE_PRIVATE).edit();
                     editor.putBoolean("SOUND_SWITCH_STATE", false);
                     editor.commit();
-                    //musicSwitch.setChecked(false);
+
                 }
             }
         });
@@ -78,6 +75,7 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(musicSwitch.isChecked()){
+                    musicMute = false;
                     MenuActivity.ring.start();
                     SharedPreferences.Editor editor = getSharedPreferences("MUSIC_SWITCH_STATE", MODE_PRIVATE).edit();
                     editor.putBoolean("MUSIC_SWITCH_STATE", true);
@@ -85,11 +83,45 @@ public class SettingsActivity extends AppCompatActivity {
                     //musicSwitch.setChecked(true);
                 }
                 else{
+                    musicMute = true;
                     MenuActivity.ring.pause();
                     SharedPreferences.Editor editor = getSharedPreferences("MUSIC_SWITCH_STATE", MODE_PRIVATE).edit();
                     editor.putBoolean("MUSIC_SWITCH_STATE", false);
                     editor.commit();
                     //musicSwitch.setChecked(false);
+                }
+            }
+        });
+
+        //Vibration switch
+        sharedPreferences = getSharedPreferences("VIBRATION_SWITCH_STATE", MODE_PRIVATE);
+        vibrationSwitch.setChecked(sharedPreferences.getBoolean("VIBRATION_SWITCH_STATE", true));
+
+        if(!MenuActivity.vibIsNotFirstTime){
+            vibrationSwitch.setChecked(true);
+            MenuActivity.vibIsNotFirstTime = true;
+
+        }
+
+        vibrationSwitch.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if(vibrationSwitch.isChecked()){
+
+
+                    globalVibMute = false;
+                    SharedPreferences.Editor editor = getSharedPreferences("VIBRATION_SWITCH_STATE", MODE_PRIVATE).edit();
+                    editor.putBoolean("VIBRATION_SWITCH_STATE", true);
+                    editor.commit();
+                    //musicSwitch.setChecked(true);
+                }
+                else{
+
+                    globalVibMute = true;
+                    SharedPreferences.Editor editor = getSharedPreferences("VIBRATION_SWITCH_STATE", MODE_PRIVATE).edit();
+                    editor.putBoolean("VIBRATION_SWITCH_STATE", false);
+                    editor.commit();
+
                 }
             }
         });
@@ -125,23 +157,22 @@ public class SettingsActivity extends AppCompatActivity {
 
     //Back to menu
     public void openMenu(View v) {
-        vibrator.vibrate(8);
+        goingToVibrate();
         finish();
 
     }
 
-    private void mute() {
-        //mute audio
+    public void goingToVibrate(){
+        if(SettingsActivity.globalVibMute == true){
 
-        AudioManager amanager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        amanager.setStreamMute(AudioManager.STREAM_NOTIFICATION, true);
+
+        }
+        else{
+            vibrator.vibrate(8);
+        }
     }
 
-    public void unmute() {
-        //unmute audio
-        AudioManager amanager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        amanager.setStreamMute(AudioManager.STREAM_NOTIFICATION, false);
-    }
+
     //https://www.youtube.com/watch?v=RyiTx8lWdx0&t=202s
 
 }
