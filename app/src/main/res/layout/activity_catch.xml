@@ -94,7 +94,7 @@
         android:layout_width="316dp"
         android:layout_height="56dp"
         android:gravity="center"
-        android:text="With a fast forward swinging motion please!"
+        android:text="Swing your device fast and forward!"
         android:textColor="#DCFFFFFF"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"

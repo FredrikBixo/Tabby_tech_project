@@ -20,6 +20,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import pl.droidsonroids.gif.GifImageView;
 
 public class HelloArActivity extends AppCompatActivity implements SensorEventListener {
@@ -64,8 +66,26 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
 
     pedometer = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
 
+    //Decide which butterfly
+    int randomNum = ThreadLocalRandom.current().nextInt(0, 5 + 1);
+
+    if(randomNum == 1){}
+    else if (randomNum == 2){
+      butterfly = (GifImageView) findViewById(R.id.gifImageViewGame);
+    }
+    else if (randomNum == 3){
+      butterfly = (GifImageView) findViewById(R.id.gifImageViewGame);
+    }
+    else if (randomNum == 4){
+      butterfly = (GifImageView) findViewById(R.id.gifImageViewGame);
+    }
+    else{
+      butterfly = (GifImageView) findViewById(R.id.gifImageViewGame);
+    }
+
+
     // create butterfly
-    butterfly = (GifImageView) findViewById(R.id.gifImageViewGame);
+
     circle = (GifImageView) findViewById(R.id.gifImageCircle);
     butterfly.setVisibility(View.INVISIBLE);
     circle.setVisibility(View.INVISIBLE);
