@@ -161,6 +161,12 @@ public class CollectionActivity extends AppCompatActivity {
 
     }
 
+    public void openPlay(View view) {
+        Intent intent = new Intent(this, HelloArActivity.class);
+        startActivity(intent);
+        MenuActivity.ring.stop();
+    }
+
     public void onClickLock(View view) {
         //Display an alert about a DLC or something.
 
