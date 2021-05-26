@@ -40,6 +40,7 @@
         android:textColor="#DFD78A"
 
 
+
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

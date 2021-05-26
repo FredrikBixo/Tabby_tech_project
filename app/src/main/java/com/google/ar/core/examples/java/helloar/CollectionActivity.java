@@ -33,7 +33,7 @@ public class CollectionActivity extends AppCompatActivity {
             });
         }
 
-        if(MenuActivity.blue.getCount() == 1){
+        if(MenuActivity.blue.getCount() >= 1){
 
             blueImage.setImageResource(R.drawable.butterfly1);
             blueImage.setOnClickListener(new View.OnClickListener() {
@@ -47,7 +47,7 @@ public class CollectionActivity extends AppCompatActivity {
     }
 
     public void onClick1(View view) {
-        if(MenuActivity.blue.getCount() == 1) {
+        if(MenuActivity.blue.getCount() >= 1) {
             vibrator.vibrate(8);
         }
         Intent intent = new Intent(this, ButterflyInfo.class);

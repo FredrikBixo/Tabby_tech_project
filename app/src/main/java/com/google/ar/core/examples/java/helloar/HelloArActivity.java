@@ -69,18 +69,22 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
     //Decide which butterfly
     int randomNum = ThreadLocalRandom.current().nextInt(0, 5 + 1);
 
-    if(randomNum == 1){}
+    butterfly = (GifImageView) findViewById(R.id.gifImageViewGame);
+
+    if(randomNum == 1){
+      butterfly.setImageResource();
+    }
     else if (randomNum == 2){
-      butterfly = (GifImageView) findViewById(R.id.gifImageViewGame);
+
     }
     else if (randomNum == 3){
-      butterfly = (GifImageView) findViewById(R.id.gifImageViewGame);
+
     }
     else if (randomNum == 4){
-      butterfly = (GifImageView) findViewById(R.id.gifImageViewGame);
+
     }
     else{
-      butterfly = (GifImageView) findViewById(R.id.gifImageViewGame);
+
     }
 
 
