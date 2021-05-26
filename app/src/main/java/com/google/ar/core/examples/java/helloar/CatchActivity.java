@@ -74,10 +74,13 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
 
 
     //Mediaplayer
-    MediaPlayer ring;
+    private MediaPlayer ring, success, fail;
 
     //Butterfly
     ImageView blueImage;
+
+    //Dialog builder
+    private AlertDialog.Builder builderSuccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,8 +149,10 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
 
             }
         };
-        //Get woosh sound
+        //Get  sounds
         ring = MediaPlayer.create(CatchActivity.this, R.raw.woosh);
+        success = MediaPlayer.create(CatchActivity.this, R.raw.success);
+        fail = MediaPlayer.create(CatchActivity.this, R.raw.fail);
 
 
 
@@ -184,8 +189,9 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
             public void run() {
                 handler.post(new Runnable() {
                     public void run() {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(CatchActivity.this);
-                        builder.setTitle("Oh no...")
+
+                        AlertDialog.Builder builderOOT = new AlertDialog.Builder(CatchActivity.this);
+                        builderOOT.setTitle("Oh no...")
                                 .setMessage("... the butterfly flew away.")
                                 .setCancelable(false)
                                 .setPositiveButton("Try again", new DialogInterface.OnClickListener() {
@@ -200,13 +206,17 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
                                     }
                                 });
                         //Creating dialog box
-                        AlertDialog dialog1 = builder.create();
+                        AlertDialog dialog1 = builderOOT.create();
 
                         if(!alertIsShowing){
                             if(!isFinishing()){
 
                                 dialog1.show();
                                 alertIsShowing = true;
+
+                                if(!fail.isPlaying()){
+                                    fail.start();
+                                }
 
                             }
                         }
@@ -225,83 +235,87 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
         currentZ = sensorEvent.values[2];
 
 
-        if(itIsNotFirstTime){
+        if(itIsNotFirstTime) {
             xDifference = Math.abs(lastX - currentX);
             yDifference = Math.abs(lastY - currentY);
             zDifference = Math.abs(lastZ - currentZ);
 
             //SHAKE interaktion som kanske implementeras senare??
 
-            if((xDifference > shakeThreshHold && yDifference > shakeThreshHold )||/*
+            if(!alertIsShowing){
+
+            if ((xDifference > shakeThreshHold && yDifference > shakeThreshHold) ||/*
                     (xDifference > shakeThreshHold && zDifference > shakeThreshHold) ||*/
-                    (yDifference > shakeThreshHold && zDifference > shakeThreshHold)){
+                    (yDifference > shakeThreshHold && zDifference > shakeThreshHold)) {
 
                 int randomNum = ThreadLocalRandom.current().nextInt(0, 100 + 1);
-                if(!ring.isPlaying()){
-                    ring.start();
-                }
-
-                if(correctAngle == true && randomNum <= 25 && lastY > currentY){
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(CatchActivity.this);
-                    builder.setTitle("Yay!")
-                            .setMessage("You caught it!")
-                            .setCancelable(false)
-                            .setPositiveButton("Check it out", new DialogInterface.OnClickListener() {
-                                // This onclick method should reopen the AR-view, either by using
-                                // startActivity (as below) or by somehow going back from the current activity to
-                                // its parent-activity.
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent(CatchActivity.this, CollectionActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            });
-                    //Set blue butterfly caught
-                    MenuActivity.blue.setCaught();
-                    MenuActivity.blue.count();
 
 
-
-                    //Creating dialog box
-                    prompt.setText("Yay!");
-                    vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE));
-                    AlertDialog dialog1 = builder.create();
-
-                    if(!alertIsShowing){
-                        if(!isFinishing()){
-
-                            dialog1.show();
-                            alertIsShowing = true;
-                        }
+                    if (!ring.isPlaying()) {
+                        ring.start();
                     }
 
 
-                }
+                if (correctAngle == true && randomNum <= 25 && lastY > currentY) {
 
-                else{
-                    //vibrator.vibrate(500);
-                    //deprecated in API 26 ??
-                }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-            }
+                        builderSuccess = new AlertDialog.Builder(CatchActivity.this);
 
-                else if (randomNum > 25 && randomNum <= 50){
+                        builderSuccess.setTitle("Yay!")
+                                .setMessage("You caught it!")
+                                .setCancelable(false)
+                                .setPositiveButton("Check it out", new DialogInterface.OnClickListener() {
+                                    // This onclick method should reopen the AR-view, either by using
+                                    // startActivity (as below) or by somehow going back from the current activity to
+                                    // its parent-activity.
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent intent = new Intent(CatchActivity.this, CollectionActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                });
+                        //Set blue butterfly caught
+                        MenuActivity.blue.setCaught();
+                        MenuActivity.blue.count();
+
+
+                        //Creating dialog box
+                        prompt.setText("Yay!");
+                        AlertDialog dialog1 = builderSuccess.create();
+
+                        //if (!alertIsShowing) {
+                            if (!isFinishing()) {
+                                vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE));
+
+                                dialog1.show();
+                                alertIsShowing = true;
+
+                                if (!success.isPlaying()) {
+                                    success.start();
+                                }
+                            }
+                       // }
+
+
+                    } else {
+                        //vibrator.vibrate(500);
+                        //deprecated in API 26 ??
+                    }
+
+                } else if (randomNum > 25 && randomNum <= 50) {
                     prompt.setText("Close!");
-                }
-
-                else if (randomNum > 50 && randomNum <= 75){
+                } else if (randomNum > 50 && randomNum <= 75) {
                     prompt.setText("Try again!");
-                }
-
-                else if (randomNum > 75){
+                } else if (randomNum > 75) {
                     prompt.setText("Maybe next swing!");
                 }
 
             }
+
+        }
+
 
             if(currentX < -0.5) {
                 direction[0] = "Right";

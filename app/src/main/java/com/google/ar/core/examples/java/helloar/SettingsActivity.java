@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
@@ -23,6 +24,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        vibrator = (Vibrator) SettingsActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
 
         //Bind to respective switch
         soundSwitch = (Switch) findViewById(R.id.soundswitch);
@@ -114,7 +116,6 @@ public class SettingsActivity extends AppCompatActivity {
         AudioManager amanager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         amanager.setStreamMute(AudioManager.STREAM_NOTIFICATION, false);
     }
-
     //https://www.youtube.com/watch?v=RyiTx8lWdx0&t=202s
 
 }
