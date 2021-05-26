@@ -3,6 +3,7 @@ package com.google.ar.core.examples.java.helloar;
 import android.Manifest;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Camera;
@@ -12,8 +13,10 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+
 import android.os.Vibrator;
 import android.util.DisplayMetrics;
+
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -22,7 +25,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+
 import java.util.concurrent.ThreadLocalRandom;
+
 
 import pl.droidsonroids.gif.GifImageView;
 
@@ -38,11 +43,13 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
   private int stepCount = 0;
   private boolean firstBoot;
   private GifImageView butterfly, circle;
+
   private Sensor rotationVectorSensor;
   private Vibrator vibrator;
   public static int choosebutterfly;
   private MediaPlayer alert;
   public static boolean isHardModeON;
+
 
 
   @Override
@@ -71,6 +78,7 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
 
     pedometer = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
 
+
     //Decide which butterfly
     choosebutterfly = ThreadLocalRandom.current().nextInt(4);
 
@@ -97,6 +105,11 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
     butterfly.setVisibility(View.INVISIBLE);
     circle.setVisibility(View.INVISIBLE);
 
+    // create butterfly
+    butterfly = (GifImageView) findViewById(R.id.gifImageViewGame);
+    circle = (GifImageView) findViewById(R.id.gifImageCircle);
+
+
     // set tap interaction on butterfly
     butterfly.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -105,11 +118,16 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
       }
     });
 
+
     rotationVectorSensor =
             sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
 
     // move butterfly off screen
   /*  AnimatorSet butterflySpawn = new AnimatorSet();
+=======
+    // move butterfly off screen
+    AnimatorSet butterflySpawn = new AnimatorSet();
+>>>>>>> 7234e5f16552e7deae12e7552596902634ba9348
     ObjectAnimator butterflyAnimation = ObjectAnimator.ofFloat(butterfly, "translationX", -500f);
     butterflyAnimation.setDuration(2000);
     ObjectAnimator circleAnimation = ObjectAnimator.ofFloat(circle, "translationX", -500f);
@@ -117,11 +135,13 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
     butterflySpawn.play(butterflyAnimation).with(circleAnimation);
     butterflySpawn.start();
 
+<<<<<<< HEAD
 */
     prompt = findViewById(R.id.promptText);
 
     //alert sound
     alert = MediaPlayer.create(HelloArActivity.this, R.raw.attention);
+
 
   }
 
@@ -215,12 +235,22 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
   }
 
   private void spawnButterfly() {
-    AnimatorSet butterflyAnimation = new AnimatorSet();
-    ObjectAnimator butterflySpawn = ObjectAnimator.ofFloat(butterfly, "translationX", 500f);
-    ObjectAnimator butterflyAway = ObjectAnimator.ofFloat(butterfly, "translationX", -500f);
-    butterflySpawn.setDuration(2000);
-    butterflyAnimation.play(butterflySpawn).before(butterflyAway);
-    butterflyAnimation.start();
+
+    pedometerText.setText("Steps: " + String.valueOf(stepCount));
+
+    if(stepCount > 25) {
+      butterfly.setVisibility(View.VISIBLE);
+      circle.setVisibility(View.VISIBLE);
+
+      AnimatorSet butterflySpawn = new AnimatorSet();
+      ObjectAnimator butterflyAnimation = ObjectAnimator.ofFloat(butterfly, "translationX", 500f);
+      butterflyAnimation.setDuration(2000);
+      ObjectAnimator circleAnimation = ObjectAnimator.ofFloat(circle, "translationX", 500f);
+      circleAnimation.setDuration(2000);
+      butterflySpawn.play(butterflyAnimation).with(circleAnimation);
+      butterflySpawn.start();
+    }
+
   }
 
   @Override
@@ -242,6 +272,7 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
   public void openCatch() {
     Intent intent = new Intent(this, CatchActivity.class);
     startActivity(intent);
+
     finish();
   }
 
@@ -253,6 +284,7 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
     vibrator.vibrate(8);
     MenuActivity.ring.start();
     finish();
+
 
   }
 }
