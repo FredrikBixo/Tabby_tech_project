@@ -7,7 +7,6 @@ import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 
@@ -21,7 +20,7 @@ public class MenuActivity extends AppCompatActivity {
     public static Vibrator vibrator;
     private Button button;
     //Butterflies
-    public static Butterfly blue;
+    public static Butterfly blueButterfly, redButterfly, whiteButterfly, greenButterfly;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +75,10 @@ public class MenuActivity extends AppCompatActivity {
         ring.start();
 
         //Create butterflies here so as to not have to use save state
-        blue = new Butterfly("blue");
+        blueButterfly = new Butterfly("blue");
+        redButterfly = new Butterfly("red");
+        whiteButterfly = new Butterfly("white");
+        greenButterfly = new Butterfly("green");
 
     }
 

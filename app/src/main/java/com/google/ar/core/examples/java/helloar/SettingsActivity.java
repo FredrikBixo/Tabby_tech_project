@@ -18,6 +18,7 @@ public class SettingsActivity extends AppCompatActivity {
     public Switch musicSwitch, soundSwitch, vibrationSwitch, hardModeSwitch;
     public Vibrator vibrator;
 
+
     boolean prevCheckMusic, prevCheckSound, prevCheckVib, prevCheckHard;
     SharedPreferences sharedPreferences;
     @Override
@@ -89,6 +90,30 @@ public class SettingsActivity extends AppCompatActivity {
                     editor.putBoolean("MUSIC_SWITCH_STATE", false);
                     editor.commit();
                     //musicSwitch.setChecked(false);
+                }
+            }
+        });
+
+        //HardMode switch
+        sharedPreferences = getSharedPreferences("HARDMODE_SWITCH_STATE", MODE_PRIVATE);
+        hardModeSwitch.setChecked(sharedPreferences.getBoolean("HARDMODE_SWITCH_STATE", true));
+        if(MenuActivity.ring.isPlaying()){
+            musicSwitch.setChecked(true);
+        }
+        musicSwitch.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if(musicSwitch.isChecked()){
+                    SharedPreferences.Editor editor = getSharedPreferences("HARDMODE_SWITCH_STATE", MODE_PRIVATE).edit();
+                    editor.putBoolean("HARDMODE_SWITCH_STATE", true);
+                    editor.commit();
+
+                }
+                else{
+                    SharedPreferences.Editor editor = getSharedPreferences("HARDMODE_SWITCH_STATE", MODE_PRIVATE).edit();
+                    editor.putBoolean("HARDMODE_SWITCH_STATE", false);
+                    editor.commit();
+
                 }
             }
         });

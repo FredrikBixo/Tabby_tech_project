@@ -14,5 +14,5 @@
         android:layout_weight="1"
         android:background="#982121"
         android:backgroundTint="@color/design_default_color_error"
-        app:srcCompat="@drawable/butterfly" />
+        app:srcCompat="@drawable/butterfly_catch" />
 </LinearLayout>

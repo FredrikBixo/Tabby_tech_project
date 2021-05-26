@@ -20,20 +20,18 @@ import android.os.Handler;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.speech.tts.TextToSpeech;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.util.Locale;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ThreadLocalRandom;
+
+import pl.droidsonroids.gif.GifImageView;
 
 // Timer functionality based on https://examples.javacodegeeks.com/android/core/activity/android-timertask-example/#:~:text=%20Android%20TimerTask%20Example%20%201%20Create%20a,Open%20src%2Fcom.javacodegeeks.%204%20Android%20Manifest.%20%20More%20
 
@@ -78,6 +76,7 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
 
     //Butterfly
     ImageView blueImage;
+    GifImageView butterfly;
 
     //Dialog builder
     private AlertDialog.Builder builderSuccess;
@@ -155,6 +154,21 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
         fail = MediaPlayer.create(CatchActivity.this, R.raw.fail);
 
 
+        //Choose butterfly
+        butterfly = (GifImageView) findViewById(R.id.gifImageView);
+
+        if(HelloArActivity.choosebutterfly == 0){
+            butterfly.setImageResource(R.drawable.butterfly_catch);
+        }
+        else if (HelloArActivity.choosebutterfly == 1){
+            butterfly.setImageResource(R.drawable.peacock);
+        }
+        else if (HelloArActivity.choosebutterfly == 2){
+            butterfly.setImageResource(R.drawable.whitebutterfly);
+        }
+        else{
+            butterfly.setImageResource(R.drawable.greenbutterfly);
+        }
 
     }
 
@@ -277,8 +291,24 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
                                     }
                                 });
                         //Set blue butterfly caught
-                        MenuActivity.blue.setCaught();
-                        MenuActivity.blue.count();
+
+                        if(HelloArActivity.choosebutterfly == 0){
+                            MenuActivity.blueButterfly.setCaught();
+                            MenuActivity.blueButterfly.count();;
+                        }
+                        else if (HelloArActivity.choosebutterfly == 1){
+                            MenuActivity.redButterfly.setCaught();
+                            MenuActivity.redButterfly.count();
+                        }
+                        else if (HelloArActivity.choosebutterfly == 2){
+                            MenuActivity.whiteButterfly.setCaught();
+                            MenuActivity.whiteButterfly.count();
+                        }
+                        else{
+                            MenuActivity.greenButterfly.setCaught();
+                            MenuActivity.greenButterfly.count();
+
+                        }
 
 
                         //Creating dialog box

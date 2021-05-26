@@ -39,16 +39,27 @@ public class ButterflyInfo extends AppCompatActivity {
             case 1:
                 butterfly_image.setImageResource(R.drawable.butterfly1);
                 butterfly_name.setText(R.string.butterfly1_name);
-                butterfly_counter.setText("Caught: " + MenuActivity.blue.getCount());
+                butterfly_counter.setText("Caught: " + MenuActivity.blueButterfly.getCount());
                 butterfly_info.setText(R.string.butterfly1_info);
                 break;
             case 2:
                 butterfly_image.setImageResource(R.drawable.butterfly2);
                 butterfly_name.setText(R.string.butterfly2_name);
+                butterfly_counter.setText("Caught: " + MenuActivity.redButterfly.getCount());
+                butterfly_info.setText(R.string.butterfly2_info);
                 break;
             case 3:
                 butterfly_image.setImageResource(R.drawable.butterfly3);
                 butterfly_name.setText(R.string.butterfly3_name);
+                butterfly_counter.setText("Caught: " + MenuActivity.whiteButterfly.getCount());
+                butterfly_info.setText(R.string.butterfly3_info);
+                break;
+
+            case 4:
+                butterfly_image.setImageResource(R.drawable.green);
+                butterfly_name.setText(R.string.green_name);
+                butterfly_counter.setText("Caught: " + MenuActivity.greenButterfly.getCount());
+                butterfly_info.setText(R.string.green_info);
                 break;
             default:
                 break;

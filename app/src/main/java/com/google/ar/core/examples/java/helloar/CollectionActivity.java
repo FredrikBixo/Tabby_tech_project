@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class CollectionActivity extends AppCompatActivity {
-    public ImageView blueImage;
+    public ImageView blueImage, redImage, whiteImage, greenImage;
     private Vibrator vibrator;
 
 
@@ -23,8 +23,11 @@ public class CollectionActivity extends AppCompatActivity {
         vibrator = (Vibrator)  CollectionActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
 
         blueImage = findViewById(R.id.blue);
+        redImage = findViewById(R.id.red);
+        whiteImage = findViewById(R.id.white);
+        greenImage = findViewById(R.id.green);
 
-        if(MenuActivity.blue.getCount() == 0) {
+        if(MenuActivity.blueButterfly.getCount() == 0) {
             blueImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -33,7 +36,7 @@ public class CollectionActivity extends AppCompatActivity {
             });
         }
 
-        if(MenuActivity.blue.getCount() >= 1){
+        if(MenuActivity.blueButterfly.getCount() >= 1){
 
             blueImage.setImageResource(R.drawable.butterfly1);
             blueImage.setOnClickListener(new View.OnClickListener() {
@@ -44,10 +47,76 @@ public class CollectionActivity extends AppCompatActivity {
             });
 
         }
+
+        //Red
+        if(MenuActivity.redButterfly.getCount() == 0) {
+            redImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onClickLock(view);
+                }
+            });
+        }
+
+        if(MenuActivity.redButterfly.getCount() >= 1){
+
+            redImage.setImageResource(R.drawable.butterfly2);
+            redImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onClick2(view);
+                }
+            });
+
+        }
+
+        //White
+        if(MenuActivity.whiteButterfly.getCount() == 0) {
+            whiteImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onClickLock(view);
+                }
+            });
+        }
+
+        if(MenuActivity.whiteButterfly.getCount() >= 1){
+
+            whiteImage.setImageResource(R.drawable.butterfly3);
+            whiteImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onClick3(view);
+                }
+            });
+
+        }
+
+        //Green
+        if(MenuActivity.greenButterfly.getCount() == 0) {
+            greenImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onClickLock(view);
+                }
+            });
+        }
+
+        if(MenuActivity.greenButterfly.getCount() >= 1){
+
+            greenImage.setImageResource(R.drawable.green);
+            greenImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onClick4(view);
+                }
+            });
+
+        }
     }
 
     public void onClick1(View view) {
-        if(MenuActivity.blue.getCount() >= 1) {
+        if(MenuActivity.blueButterfly.getCount() >= 1) {
             vibrator.vibrate(8);
         }
         Intent intent = new Intent(this, ButterflyInfo.class);
@@ -56,16 +125,30 @@ public class CollectionActivity extends AppCompatActivity {
     }
 
     public void onClick2(View view) {
-        vibrator.vibrate(10);
+        if(MenuActivity.redButterfly.getCount() >= 1) {
+            vibrator.vibrate(8);
+        }
+
         Intent intent = new Intent(this, ButterflyInfo.class);
         intent.putExtra("butterfly_id",2);
         startActivity(intent);
     }
 
     public void onClick3(View view) {
-        vibrator.vibrate(10);
+        if(MenuActivity.whiteButterfly.getCount() >= 1) {
+            vibrator.vibrate(8);
+        }
         Intent intent = new Intent(this, ButterflyInfo.class);
         intent.putExtra("butterfly_id",3);
+        startActivity(intent);
+    }
+
+    public void onClick4(View view) {
+        if(MenuActivity.greenButterfly.getCount() >= 1) {
+            vibrator.vibrate(8);
+        }
+        Intent intent = new Intent(this, ButterflyInfo.class);
+        intent.putExtra("butterfly_id",4);
         startActivity(intent);
     }
 

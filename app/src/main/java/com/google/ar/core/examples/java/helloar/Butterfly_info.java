@@ -40,6 +40,10 @@ public class Butterfly_info extends AppCompatActivity {
             case 3:
                 butterfly_image.setImageResource(R.drawable.butterfly3);
                 break;
+
+            case 4:
+                butterfly_image.setImageResource(R.drawable.green);
+                break;
             default:
                 break;
         }

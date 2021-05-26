@@ -10,12 +10,14 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -37,7 +39,9 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
   private GifImageView butterfly, circle;
   private Sensor rotationVectorSensor;
   private Vibrator vibrator;
-
+  public static int choosebutterfly;
+  private MediaPlayer alert;
+  public boolean isHardModeON;
 
 
   @Override
@@ -67,24 +71,22 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
     pedometer = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
 
     //Decide which butterfly
-    int randomNum = ThreadLocalRandom.current().nextInt(0, 5 + 1);
+    choosebutterfly = ThreadLocalRandom.current().nextInt(4);
+
 
     butterfly = (GifImageView) findViewById(R.id.gifImageViewGame);
 
-    if(randomNum == 1){
-      butterfly.setImageResource();
+    if(choosebutterfly == 0){
+      butterfly.setImageResource(R.drawable.butterfly_catch);
     }
-    else if (randomNum == 2){
-
+    else if (choosebutterfly == 1){
+      butterfly.setImageResource(R.drawable.peacock);
     }
-    else if (randomNum == 3){
-
-    }
-    else if (randomNum == 4){
-
+    else if (choosebutterfly == 2){
+      butterfly.setImageResource(R.drawable.whitebutterfly);
     }
     else{
-
+      butterfly.setImageResource(R.drawable.greenbutterfly);
     }
 
 
@@ -117,8 +119,8 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
 */
     prompt = findViewById(R.id.promptText);
 
-
-
+    //alert sound
+    alert = MediaPlayer.create(HelloArActivity.this, R.raw.attention);
 
   }
 
@@ -148,12 +150,13 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
       }
       stepCount = (int) event.values[0] - initialStepCount;
 
-      if (stepCount > 3) {
+      if (stepCount > 2) {
         butterfly.setVisibility(View.VISIBLE);
         circle.setVisibility(View.VISIBLE);
 
         spawnButterfly();
 
+        alert.start();
         prompt.setText("There is a butterfly nearby! Find it!");
 
       }
@@ -192,11 +195,21 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
       System.out.println("x:" + xRotation);
       System.out.println("y:" + yRotation);
       //  butterfly.animate().translationX(((360-degree)+40)*width/80).setDuration(200).start();
-      butterfly.setX(((180 - xRotation) - 100) * width / 80);
-      butterfly.setY(((180 - yRotation) - 100) * height / 80);
 
-      circle.setX(((180 - xRotation) - 100) * width / 80);
-      circle.setY(((180 - yRotation) - 100) * height / 80);
+      if(!isHardModeON) {
+        //Easy mode
+        butterfly.setX(((180 - xRotation) - 100) * width / 80);
+        butterfly.setY(((180 - yRotation) - 100) * height / 80);
+
+        circle.setX(((180 - xRotation) - 100) * width / 80);
+        circle.setY(((180 - yRotation) - 100) * height / 80);
+      }else{
+      //Hard mode
+      butterfly.setX(((180 - xRotation) + 100) * width / 80);
+      butterfly.setY(((180 - yRotation) + 100) * height / 80);
+
+      circle.setX(((180 - xRotation) + 100) * width / 80);
+      circle.setY(((180 - yRotation) + 100) * height / 80);}
     }
   }
 
