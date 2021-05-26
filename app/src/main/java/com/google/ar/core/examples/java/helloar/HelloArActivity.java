@@ -199,11 +199,11 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
 
       if(isHardModeON) {
         //Hard mode
-        butterfly.setX(((180 + xRotation) - 100) * width / 80);
-        butterfly.setY(((180 + yRotation) - 100) * height / 80);
+        butterfly.setX(((180 - xRotation*3) - 100) * width / 80);
+        butterfly.setY(((180 - yRotation*3) - 100) * height / 80);
 
-        circle.setX(((180 + xRotation) - 100) * width / 80);
-        circle.setY(((180 + yRotation) - 100) * height / 80);
+        circle.setX(((180 - xRotation*3) - 100) * width / 80);
+        circle.setY(((180 - yRotation*3) - 100) * height / 80);
       }else{
       //Easy mode
       butterfly.setX(((180 - xRotation) - 100) * width / 80);
