@@ -165,6 +165,7 @@ public class CollectionActivity extends AppCompatActivity {
         Intent intent = new Intent(this, HelloArActivity.class);
         startActivity(intent);
         MenuActivity.ring.stop();
+        finish();
     }
 
     public void onClickLock(View view) {
