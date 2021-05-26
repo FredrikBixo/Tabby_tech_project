@@ -100,16 +100,16 @@
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:layout_weight="1"
+            android:onClick="onClickLock"
             android:contentDescription="@string/app_name"
-            android:onClick="onClick4"
             android:src="@drawable/lock3" />
 
         <ImageView
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:layout_weight="1"
-            android:contentDescription="@string/app_name"
             android:onClick="onClickLock"
+            android:contentDescription="@string/app_name"
             android:src="@drawable/lock3" />
     </LinearLayout>
 

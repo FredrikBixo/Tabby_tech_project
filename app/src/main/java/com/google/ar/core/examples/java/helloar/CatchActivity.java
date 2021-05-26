@@ -54,6 +54,8 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
     private float currentX, currentY, currentZ, lastX, lastY, lastZ;
     private float xDifference, yDifference, zDifference;
     private float shakeThreshHold = 4f;
+
+    //Random
     private Vibrator vibrator;
     private String[] direction = {" ", " "};
     private TextToSpeech mTTS;

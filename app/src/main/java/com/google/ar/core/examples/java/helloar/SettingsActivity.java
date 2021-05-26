@@ -96,20 +96,21 @@ public class SettingsActivity extends AppCompatActivity {
 
         //HardMode switch
         sharedPreferences = getSharedPreferences("HARDMODE_SWITCH_STATE", MODE_PRIVATE);
-        hardModeSwitch.setChecked(sharedPreferences.getBoolean("HARDMODE_SWITCH_STATE", true));
-        if(MenuActivity.ring.isPlaying()){
-            musicSwitch.setChecked(true);
-        }
-        musicSwitch.setOnClickListener(new View.OnClickListener(){
+        hardModeSwitch.setChecked(sharedPreferences.getBoolean("HARDMODE_SWITCH_STATE", false));
+
+        hardModeSwitch.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                if(musicSwitch.isChecked()){
+                if(hardModeSwitch.isChecked()){
+
+                    HelloArActivity.isHardModeON = true;
                     SharedPreferences.Editor editor = getSharedPreferences("HARDMODE_SWITCH_STATE", MODE_PRIVATE).edit();
                     editor.putBoolean("HARDMODE_SWITCH_STATE", true);
                     editor.commit();
 
                 }
                 else{
+                    HelloArActivity.isHardModeON = false;
                     SharedPreferences.Editor editor = getSharedPreferences("HARDMODE_SWITCH_STATE", MODE_PRIVATE).edit();
                     editor.putBoolean("HARDMODE_SWITCH_STATE", false);
                     editor.commit();

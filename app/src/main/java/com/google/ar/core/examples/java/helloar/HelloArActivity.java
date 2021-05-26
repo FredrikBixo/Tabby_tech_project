@@ -28,6 +28,7 @@ import pl.droidsonroids.gif.GifImageView;
 
 public class HelloArActivity extends AppCompatActivity implements SensorEventListener {
 
+
   private Camera mCamera;
   private CameraPreview mPreview;
   private TextView pedometerText, prompt;
@@ -41,7 +42,7 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
   private Vibrator vibrator;
   public static int choosebutterfly;
   private MediaPlayer alert;
-  public boolean isHardModeON;
+  public static boolean isHardModeON;
 
 
   @Override
@@ -196,20 +197,20 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
       System.out.println("y:" + yRotation);
       //  butterfly.animate().translationX(((360-degree)+40)*width/80).setDuration(200).start();
 
-      if(!isHardModeON) {
-        //Easy mode
-        butterfly.setX(((180 - xRotation) - 100) * width / 80);
-        butterfly.setY(((180 - yRotation) - 100) * height / 80);
+      if(isHardModeON) {
+        //Hard mode
+        butterfly.setX(((180 + xRotation) - 100) * width / 80);
+        butterfly.setY(((180 + yRotation) - 100) * height / 80);
 
-        circle.setX(((180 - xRotation) - 100) * width / 80);
-        circle.setY(((180 - yRotation) - 100) * height / 80);
+        circle.setX(((180 + xRotation) - 100) * width / 80);
+        circle.setY(((180 + yRotation) - 100) * height / 80);
       }else{
-      //Hard mode
-      butterfly.setX(((180 - xRotation) + 100) * width / 80);
-      butterfly.setY(((180 - yRotation) + 100) * height / 80);
+      //Easy mode
+      butterfly.setX(((180 - xRotation) - 100) * width / 80);
+      butterfly.setY(((180 - yRotation) - 100) * height / 80);
 
-      circle.setX(((180 - xRotation) + 100) * width / 80);
-      circle.setY(((180 - yRotation) + 100) * height / 80);}
+      circle.setX(((180 - xRotation) - 100) * width / 80);
+      circle.setY(((180 - yRotation) - 100) * height / 80);}
     }
   }
 
