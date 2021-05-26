@@ -33,8 +33,10 @@
     <string-array name="instant_placement_options_array" translatable="false">
         <item>Enable Instant Placement</item>
     </string-array>
-    <string name="butterfly1_name">Blåvinge</string>
-    <string name="butterfly2_name">Påfågelöga</string>
-    <string name="butterfly3_name">Apollofjäril</string>
+    <string name="butterfly1_name">Blue Morpho</string>
+    <string name="butterfly2_name">Peacock Butterfly</string>
+    <string name="butterfly3_name">Mountain Apollo</string>
+
+    <string name="butterfly1_info">As its common name implies, the blue morpho butterfly’s wings are bright blue, edged with black. The blue morpho is among the largest butterflies in the world, with wings spanning from five to eight inches. Their vivid, iridescent blue coloring is a result of the microscopic scales on the backs of their wings, which reflect light. The underside of the morpho’s wings, on the other hand, is a dull brown color with many eyespots, providing camouflage against predators such as birds and insects when its wings are closed. </string>
 
 </resources>

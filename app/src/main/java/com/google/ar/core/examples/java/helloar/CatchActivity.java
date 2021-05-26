@@ -21,9 +21,13 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.Locale;
 import java.util.Random;
@@ -68,10 +72,20 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
     private Camera mCamera;
     private CameraPreview mPreview;
 
+
+    //Mediaplayer
+    MediaPlayer ring;
+
+    //Butterfly
+    ImageView blueImage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catch);
+
+        //Butterflies
+        blueImage = (ImageView) findViewById(R.id.blue);
 
         // Create an instance of Camera
         mCamera = getCameraInstance();
@@ -83,7 +97,7 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
 
         rand = new Random();
 
-        prompt = findViewById(R.id.promptText);
+        prompt = (TextView) findViewById(R.id.promptText);
         //Accelerometer stuff
        /*xTextView = findViewById(R.id.X);
         yTextView = findViewById(R.id.Y);
@@ -132,6 +146,10 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
 
             }
         };
+        //Get woosh sound
+        ring = MediaPlayer.create(CatchActivity.this, R.raw.woosh);
+
+
 
     }
 
@@ -170,7 +188,7 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
                         builder.setTitle("Oh no...")
                                 .setMessage("... the butterfly flew away.")
                                 .setCancelable(false)
-                                .setPositiveButton("Return to game", new DialogInterface.OnClickListener() {
+                                .setPositiveButton("Try again", new DialogInterface.OnClickListener() {
                                     // This onclick method should reopen the AR-view, either by using
                                     // startActivity (as below) or by somehow going back from the current activity to
                                     // its parent-activity.
@@ -202,13 +220,10 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
 
    @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        /*xTextView.setText(Math.round(sensorEvent.values[0] * 100.0) / 100.0 + " m/s² ");
-        yTextView.setText(Math.round(sensorEvent.values[1] * 100.0) / 100.0 + " m/s² ");
-        zTextView.setText(Math.round(sensorEvent.values[2] * 100.0) / 100.0 + " m/s² ");*/
-
         currentX = sensorEvent.values[0];
         currentY = sensorEvent.values[1];
         currentZ = sensorEvent.values[2];
+
 
         if(itIsNotFirstTime){
             xDifference = Math.abs(lastX - currentX);
@@ -222,10 +237,11 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
                     (yDifference > shakeThreshHold && zDifference > shakeThreshHold)){
 
                 int randomNum = ThreadLocalRandom.current().nextInt(0, 100 + 1);
-                MediaPlayer ring= MediaPlayer.create(CatchActivity.this,R.raw.woosh);
-                ring.start();
+                if(!ring.isPlaying()){
+                    ring.start();
+                }
 
-                if(correctAngle == true && randomNum <= 25){
+                if(correctAngle == true && randomNum <= 25 && lastY > currentY){
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
@@ -233,17 +249,23 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
                     builder.setTitle("Yay!")
                             .setMessage("You caught it!")
                             .setCancelable(false)
-                            .setPositiveButton("Return to game", new DialogInterface.OnClickListener() {
+                            .setPositiveButton("Check it out", new DialogInterface.OnClickListener() {
                                 // This onclick method should reopen the AR-view, either by using
                                 // startActivity (as below) or by somehow going back from the current activity to
                                 // its parent-activity.
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent(CatchActivity.this, HelloArActivity.class);
+                                    Intent intent = new Intent(CatchActivity.this, CollectionActivity.class);
                                     startActivity(intent);
                                     finish();
                                 }
                             });
+                    //Set blue butterfly caught
+                    MenuActivity.blue.setCaught();
+                    MenuActivity.blue.count();
+
+
+
                     //Creating dialog box
                     prompt.setText("Yay!");
                     vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE));
@@ -337,6 +359,8 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
 
 
 
+
+
     }
 
 
@@ -365,6 +389,13 @@ public class CatchActivity extends AppCompatActivity implements SensorEventListe
             // Camera is not available (in use or does not exist)
         }
         return c; // returns null if camera is unavailable
+    }
+
+    //Back to menu
+    public void openMenu(View v) {
+        
+        finish();
+
     }
 
 }

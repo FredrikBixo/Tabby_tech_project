@@ -22,7 +22,22 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="1"
-        />
+        >
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+
+
+            android:clickable="true"
+
+            android:onClick="openMenu"
+            app:srcCompat="?attr/homeAsUpIndicator" />
+    </FrameLayout>
+
 
     <TextView
         android:id="@+id/pedometers"
@@ -47,6 +62,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
+
+    <!--<pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gifImageViewGameGreen"
+        android:layout_width="189dp"
+        android:layout_height="189dp"
+        android:layout_marginTop="80dp"
+        android:src="@drawable/greenbutterfly"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />-->
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/gifImageCircle"

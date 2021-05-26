@@ -3,6 +3,7 @@ package com.google.ar.core.examples.java.helloar;
 import android.Manifest;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.content.Intent;
 import android.hardware.Camera;
 import android.hardware.Sensor;
@@ -10,6 +11,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -32,12 +34,16 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
   private boolean firstBoot;
   private GifImageView butterfly, circle;
   private Sensor rotationVectorSensor;
+  private Vibrator vibrator;
+
 
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_ar);
+
+    vibrator = (Vibrator)  HelloArActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
 
     // Create an instance of Camera
     mCamera = getCameraInstance();
@@ -88,6 +94,8 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
     prompt = findViewById(R.id.promptText);
 
 
+
+
   }
 
   @Override
@@ -116,7 +124,7 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
       }
       stepCount = (int) event.values[0] - initialStepCount;
 
-      if (stepCount > 13) {
+      if (stepCount > 3) {
         butterfly.setVisibility(View.VISIBLE);
         circle.setVisibility(View.VISIBLE);
 
@@ -197,5 +205,16 @@ public class HelloArActivity extends AppCompatActivity implements SensorEventLis
     Intent intent = new Intent(this, CatchActivity.class);
     startActivity(intent);
     finish();
+  }
+
+  //Back to menu
+  public void openMenu(View v) {
+
+    //Intent intent = new Intent(this, MenuActivity.class);
+    //startActivity(intent);
+    vibrator.vibrate(8);
+    MenuActivity.ring.start();
+    finish();
+
   }
 }
