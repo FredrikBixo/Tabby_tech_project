@@ -73,6 +73,14 @@ public class MenuActivity extends AppCompatActivity {
         });*/
 
 
+                Button aboutUsB = (Button) findViewById(R.id.aboutus);
+        aboutUsB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openAboutUs();
+            }
+        });
+
         ring = MediaPlayer.create(MenuActivity.this,R.raw.bubble);
         ring.setLooping(true);
         ring.start();
@@ -96,6 +104,14 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+    public void openAboutUs() {
+        Intent intent = new Intent(this, AboutUs.class);
+        startActivity(intent);
+
+    }
+
+
 
     /*public void openAch() {
         Intent intent = new Intent(this, Achievement_Activity.class);

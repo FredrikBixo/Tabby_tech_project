@@ -9,26 +9,6 @@
     tools:context=".MenuActivity">
 
 
-
-
-    <TextView
-        android:id="@+id/chooseSensor"
-        android:layout_width="277dp"
-        android:layout_height="85dp"
-        android:fontFamily="cursive"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:text="Welcome!"
-        android:textColor="#DFD78A"
-        android:textSize="50sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.531"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.133" />
-
     <Button
         android:id="@+id/playButton"
         android:layout_width="261dp"
@@ -41,13 +21,11 @@
         android:textColor="#DFD78A"
 
 
-
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/settings_button"
@@ -56,10 +34,10 @@
         android:layout_marginTop="16dp"
         android:backgroundTint="#0D232E"
 
-        android:text="Settings"
-        android:textColor="#DFD78A"
-
         android:onClick="openSettings"
+        android:text="Settings"
+
+        android:textColor="#DFD78A"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -74,21 +52,31 @@
         android:layout_marginTop="16dp"
         android:backgroundTint="#0D232E"
 
+        android:bottomLeftRadius="8dp"
+        android:bottomRightRadius="8dp"
         android:onClick="openCollection"
+
         android:text="Collection"
         android:textColor="#DFD78A"
-
+        android:topLeftRadius="8dp"
+        android:topRightRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.619"
+        app:layout_constraintVertical_bias="0.619" />
 
-        android:bottomRightRadius="8dp"
-        android:bottomLeftRadius="8dp"
-        android:topRightRadius="8dp"
-        android:topLeftRadius="8dp"
-        />
+    <Button
+        android:id="@+id/aboutus"
+        android:layout_width="142dp"
+        android:layout_height="41dp"
+        android:layout_marginBottom="30dp"
+        android:text="© Tabby Tech"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
     <!--<ImageView
@@ -103,6 +91,26 @@
         app:layout_constraintVertical_bias="0.314"
         app:srcCompat="@drawable/butterfly" />-->
 
+    <TextView
+        android:id="@+id/chooseSensor"
+        android:layout_width="277dp"
+        android:layout_height="85dp"
+        android:background="#00FFFFFF"
+        android:backgroundTint="#00FFFFFF"
+        android:fontFamily="cursive"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:text="Welcome!"
+        android:textColor="#DFD78A"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.531"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.133" />
+
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/gifImageView"
         android:layout_width="136dp"
@@ -113,17 +121,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.309" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="© Tabby Tech"
-        android:textColor="#0D232E"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.932" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
